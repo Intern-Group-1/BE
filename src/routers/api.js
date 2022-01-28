@@ -3,6 +3,8 @@ const router = express.Router()
 const ControllerAccount = require('../controllers/ControllerAccount')
 const ControllerDoctor = require('../controllers/ControllerDoctor')
 const ControllerUser = require('../controllers/ControllerUser')
+const ControllerAssistant = require('../controllers/ControllerAssistant')
+const ControllerUploads = require('../controllers/ControllerUploads')
 const Authorization = require('../utils/authorization')
 const auth = require('../middlewares/auth')
 const req = require('express/lib/request')
@@ -24,6 +26,13 @@ router.put('/update-user/:id',auth, Authorization.roleAuthorization(['customer',
 router.delete('/delete-user/:id',auth,Authorization.roleAuthorization(['customer','admin']),ControllerUser.deleteUser)
 router.get('/profile-user', auth, Authorization.roleAuthorization(['customer','admin']), ControllerUser.getUserById)
 router.get('/get-all-user', ControllerUser.getAllUser)
+
+//Assistant
+router.post('/create-assistant', auth, Authorization.roleAuthorization(['assistant','admin']), ControllerUploads.upload, ControllerAssistant.createAssistant)
+router.put('/update-assistant/:id', auth, Authorization.roleAuthorization(['assistant','admin']), ControllerUploads.upload, ControllerAssistant.updateAssistant)
+router.delete('/delete-assistant/:id', auth, Authorization.roleAuthorization(['assistant','admin']), ControllerAssistant.deleteAssistant)
+router.get('/get-all-assistant', auth, Authorization.roleAuthorization(['assistant','admin']), ControllerAssistant.getAllAssistant)
+router.get('/get-id-assistant/:id', auth, Authorization.roleAuthorization(['assistant','admin']), ControllerAssistant.getAssistantById)
 
 
 router.put('/change-password', auth, Authorization.roleAuthorization(['customer', 'admin']), ControllerAccount.changePassword)
