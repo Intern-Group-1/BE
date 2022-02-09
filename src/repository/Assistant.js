@@ -13,7 +13,7 @@ const createAssistant = async(params) => {
 
 const updateAssistant = async(id, params) => {
     try {
-        const assistant = await findByIdAndUpdate(id, params);
+        const assistant = await Assistant.findByIdAndUpdate(id, params);
         return assistant;
     } catch (error) {
         console.log(error);
@@ -22,7 +22,7 @@ const updateAssistant = async(id, params) => {
 
 const deleteAssistant = async(id) => {
     try {
-        const assistant = await findOneAndDelete(id);
+        const assistant = await Assistant.findOneAndDelete(id);
         return assistant;
     } catch (error) {
         console.log(error);
@@ -31,11 +31,11 @@ const deleteAssistant = async(id) => {
 
 const getAssistantById = async(id) => {
     try {
-        const assistant = await findOne({id})
+        const assistant = await Assistant.findOne({id})
         .populate({
             path: 'account',
             select: ({email: 1, role: 1, _id: 0})
-        });
+        }).select({ _id: 0, __v: 0 });
         return assistant;
     } catch (error) {
         console.log(error);
@@ -44,11 +44,11 @@ const getAssistantById = async(id) => {
 
 const getAllAssistant = async () => {
     try {
-        const assistant = await find({}).
+        const assistant = await Assistant.find({}).
         populate({
             path: 'account',
             select: ({email: 1, role: 1, _id: 0})
-        });
+        }).select({ _id: 0, __v: 0 });
         return assistant;
     } catch (error) {
         console.log(error);

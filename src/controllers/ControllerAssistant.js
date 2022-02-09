@@ -56,14 +56,14 @@ const getAssistantById = async(req, res) => {
     }
 }
 
-const getAllAssistant = async () => {
+const getAllAssistant = async (req, res) => {
     try {
         const assistant = await Services.getAllAssistant();
         if(!assistant){
             res.status(400).json("Get not assistant!");
         }
-        return res.status(200).json(assistant);
-        return assistant;
+        return res.status(200).json({status: 200,data: assistant});
+   //     return assistant;
     } catch (error) {
         console.log(error);
     }

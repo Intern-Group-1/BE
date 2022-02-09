@@ -21,6 +21,7 @@ const updateAssistant = async(id, params) => {
 const deleteAssistant = async(id) => {
     try {
         const assistant = await Repository.deleteAssistant(id);
+        console.log(assistant);
         return assistant;
     } catch (error) {
         console.log(error);
