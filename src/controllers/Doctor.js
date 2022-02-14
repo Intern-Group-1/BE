@@ -1,5 +1,5 @@
-const { async } = require('q')
-const Services = require('../services/ServiceDoctor')
+
+const Services = require('../services/Doctor')
 
 async function createDoctor(req, res) {
     try {
