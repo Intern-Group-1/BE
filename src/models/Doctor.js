@@ -2,19 +2,19 @@ const mongoose =require('mongoose')
 const DoctorSchema = mongoose.Schema({
     full_name: {
         type: String,
-        required: true,
+        // required: true,
     },
     address: {
         type: String,
-        required:true,
+        // required:true,
     },
     phone_number: {
         type: String,
-        required: true,
+        // required: true,
     },
     age :{
         type: Number,
-        required: true,
+        // required: true,
     },
     // gender:{
     //     type: Boolean,
@@ -22,12 +22,12 @@ const DoctorSchema = mongoose.Schema({
     // },
     speciality:{
         type: String,
-        required: true,
+        // required: true,
 
     },
     department:{
         type:String,
-        required:true,
+        // s
     },
     // avatar:{
     //     type: String,

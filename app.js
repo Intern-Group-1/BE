@@ -7,7 +7,7 @@ dotenv.config()
 const app = express();
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
-
+const cors = require('cors')
 var db = process.env.MONGO
 mongoose
   .connect(db, {
@@ -16,7 +16,13 @@ mongoose
   })
   .then(() => console.log('MongoDB connected!'))
   .catch((err) => console.log(err))
-
+  app.use(cors({origin:"*", credentials:true}))
+  app.use(function (req, res, next) {
+    res.header("Access-Control-Allow-Origin","*");
+    res.header("Access-Control-Allow-Methods","*");
+    res.header("Access-Control-Allow-Headers","Content-Type");
+    next();
+});
 app.use('/api', Router)
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {

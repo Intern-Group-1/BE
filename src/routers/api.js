@@ -29,7 +29,7 @@ router.get('/search-doctor',ControllerUser.SearchDoctor)
 //Schedule
 const Schedule = require('../controllers/Schedule')
 router.post('/create-schedule',auth, Authorization.roleAuthorization(['doctor','admin']),Schedule.CreateSchedule)
-router.get('/get-schedule', auth, Authorization.roleAuthorization(['doctor','admin']), Schedule.getScheduleId)
+router.get('/get-by-schedule', auth, Authorization.roleAuthorization(['doctor','admin']), Schedule.getScheduleId)
 router.get('/get-all-schedule', auth, Authorization.roleAuthorization(['doctor','admin']), Schedule.getAllSchedule)
 router.put('/update-schedule/:id', auth, Authorization.roleAuthorization(['doctor', 'admin']), Schedule.updateSchedule)
 router.delete('/delete-schedule/:id', auth, Authorization.roleAuthorization(['doctor','admin']), Schedule.deleteSchedule)
@@ -38,6 +38,13 @@ const Appointment = require('../controllers/Appointment')
 router.post('/create-appointment', Appointment.createAppointment)
 router.put('/update-appointment/:id', Appointment.updateAppointment)
 router.delete('/delete-appointment/:id',Appointment.deleteAppointment)
-router.get('/get-appointment', Appointment.getAppointmentAll)
+router.get('/get-all-appointment', Appointment.getAppointmentAll)
 
+// Feedback
+const Feedback = require('../controllers/Feedback')
+router.get('/get-all-feedback', Feedback.getFeedbackAll)
+router.get('/get-by-appointment/:id', Feedback.getFeedbackByApp)
+router.post('/create-feedback', Feedback.createFeedback)
+router.put('/update-feedback/:id', Feedback.updateFeedback)
+router.delete('/delete-feedback/:id', Feedback.deleteFeedback)
 module.exports = router

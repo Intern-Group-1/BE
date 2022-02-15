@@ -1,11 +1,9 @@
-const { async } = require('q')
-const Feedback = require('../models/Feedback')
-
-async function createFeedback(params){
+const Repository = require('../repository/Feedback')
+async function createFeedback(params)
+{
     try {
-        const feedback = await new Feedback(params)
-        await feedback.save()
-        return feedback
+       const feedback = await Repository.createFeedback(params)
+       return feedback 
     } catch (error) {
         console.log(error)
     }
@@ -14,7 +12,7 @@ async function createFeedback(params){
 async function updateFeedback(id, params)
 {
     try {
-        const feedback = await Feedback.findByIdAndUpdate(id, params)
+        const feedback = await Repository.updateFeedback(id,  params)
         return feedback
     } catch (error) {
         console.log(error)
@@ -24,7 +22,7 @@ async function updateFeedback(id, params)
 async function deleteFeedback(id)
 {
     try {
-        const feedback = await Feedback.findByIdAndDelete(id)
+        const feedback = await Repository.deleteFeedback(id)
         return feedback
     } catch (error) {
         console.log(error)
@@ -34,8 +32,7 @@ async function deleteFeedback(id)
 async function getFeedbackAll()
 {
     try {
-        const feedback = await Feedback.find({})
-        
+        const feedback = await Repository.getFeedbackAll()
         return feedback
     } catch (error) {
         console.log(error)
@@ -45,8 +42,8 @@ async function getFeedbackAll()
 async function getFeedbackByApp(id)
 {
     try {
-        const feedback = await Feedback.findOne({id})
-        return feedback 
+        const feedback = await Repository.getFeedbackByApp(id)
+        return feedback
     } catch (error) {
         console.log(error)
     }
