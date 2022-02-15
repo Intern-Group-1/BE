@@ -2,11 +2,13 @@ const Services = require('../services/User')
 
 async function createUser(req, res) {
     try {
-        
         const user = await Services.createUser({
             full_name: req.body.full_name,
             address: req.body.address,
             phone_number: req.body.phone_number,
+            gender:req.body.gender,
+            avatar:req.body.avatar,
+            age:req.body.age,
             account: req.account.id
         })
         if(!user){

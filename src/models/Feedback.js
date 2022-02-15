@@ -8,7 +8,7 @@ const FeedbackSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
     },
-    Doctor :{
+    doctor :{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Doctor',
     },

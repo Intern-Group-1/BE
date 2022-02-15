@@ -3,20 +3,28 @@ const mongoose = require('mongoose')
 const UserSchema = mongoose.Schema({
     full_name: {
         type: String,
-        // required: true,
+        required: true,
     },
     address: {
         type: String,
-        // required:true,
+        required:true,
     },
     phone_number: {
         type: String,
+        required: true,
+    },
+    age :{
+        type: Number,
         // required: true,
     },
-    // avatar:{
-    //     type: String,
-    //     required: true,
-    // },
+    gender:{
+        type: Boolean,
+        required: true,
+    },
+    avatar:{
+        type: String,
+        required: true,
+    },
     account:{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Account',

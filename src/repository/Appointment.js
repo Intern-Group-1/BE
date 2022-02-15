@@ -5,7 +5,23 @@ async function createAppointment (params) {
     try {
         const appointment = await Appointment(params)
         await appointment.save()
-        return appointment
+        const id = appointment._id
+        const result = await Appointment.find({_id:id})
+        .populate(
+            { 
+                path:'user',
+                select: {full_name: 1,address:1,phone_number:1,age:1, _id: 0},
+               
+            }) 
+            .populate(
+                {   path:'doctor',
+                    select: {full_name: 1,address:1,phone_number:1,age:1,speciality:1,department:1, _id: 0}, 
+                })
+            .populate(
+                {   path:'schedule',
+                    select: {data:1, time:1, _id: 0}, 
+                })
+        return result
     } catch (error) {
         console.log(error)
     }
@@ -13,8 +29,23 @@ async function createAppointment (params) {
 
 async function updateAppointment(id, params){
     try {
-        const appointment = await Appointment.findByIdAndUpdate(id, params)
-        return appointment
+         await Appointment.findByIdAndUpdate(id, params)
+        const result = await Appointment.find({_id:id})
+        .populate(
+            { 
+                path:'user',
+                select: {full_name: 1,address:1,phone_number:1,age:1, _id: 0},
+               
+            }) 
+            .populate(
+                {   path:'doctor',
+                    select: {full_name: 1,address:1,phone_number:1,age:1,speciality:1,department:1, _id: 0}, 
+                })
+            .populate(
+                {   path:'schedule',
+                    select: {data:1, time:1, _id: 0}, 
+                })
+        return result
     } catch (error) {
         console.log(error)
     }
@@ -32,6 +63,20 @@ async function deleteAppointment(id){
 async function getAppointmentId(id) {
     try {
         const appointment = await Appointment.findOne({id})
+        .populate(
+            { 
+                path:'user',
+                select: {full_name: 1,address:1,phone_number:1,age:1, _id: 0},
+               
+            }) 
+            .populate(
+                {   path:'doctor',
+                    select: {full_name: 1,address:1,phone_number:1,age:1,speciality:1,department:1, _id: 0}, 
+                })
+            .populate(
+                {   path:'schedule',
+                        select: {data:1, time:1, _id: 0}, 
+                })
         return appointment       
     } catch (error) {
         console.log(error)
@@ -42,6 +87,21 @@ async function getAppointmentAll()
 {
     try {
         const appointment = await Appointment.find({})
+        .populate(
+            { 
+                path:'user',
+                select: {full_name: 1,address:1,phone_number:1,age:1, _id: 0},
+               
+            }) 
+            .populate(
+                {   path:'doctor',
+                    select: {full_name: 1,address:1,phone_number:1,age:1,speciality:1,department:1, _id: 0}, 
+                })
+            .populate(
+                {   path:'schedule',
+                        select: {data:1, time:1, _id: 0}, 
+                })
+                .select({ _id: 0, __v: 0 })
         return appointment
     } catch (error) {
         console.log(error)

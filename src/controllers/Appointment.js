@@ -9,7 +9,8 @@ async function createAppointment(req, res)
              user: req.body.user,
              doctor:req.body.doctor,
              node:req.body.node,
-             status:req.body.status
+             status:req.body.status,
+             schedule:req.body.schedule
         })
         if(!appointment)
         {
@@ -64,9 +65,23 @@ async function getAppointmentAll(req, res)
     }
 
 }
+async function getAppointmentId(req, res)
+{
+    try {
+        const appointment = await Service.getAppointmentId(req.params.id)
+        if(!appointment)
+        {
+            return res.status(402).json({ status: 402, message: "Appointment not exist!" })
+        }
+        return res.status(200).json({ status: 200,data: appointment })
+    } catch (error) {
+        console.log(error)
+    }
+}
 module.exports = {
     createAppointment,
     updateAppointment,
     deleteAppointment,
-    getAppointmentAll
+    getAppointmentAll,
+    getAppointmentId
 }

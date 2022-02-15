@@ -16,13 +16,16 @@ const AppointmentSchema = mongoose.Schema({
     doctor:{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Doctor',
-    },
-    //   
+    },  
     node:{
         type:String,
     },
     status:{
         type:Boolean,
-    }
+    },
+    schedule:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Schedule',
+     }
 }) 
 module.exports = mongoose.model('Appointment', AppointmentSchema) 

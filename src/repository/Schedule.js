@@ -18,8 +18,9 @@ async function CreateSchedule(params){
 
 async function updateSchedule(id, params){
     try {
-        await Schedule.findByIdAndUpdate(id, params)
-        const result = await Schedule.findOne({id})
+       
+         await Schedule.findByIdAndUpdate(id, params)
+        const result = await Schedule.find({_id:id})
         .populate( 
             {   path:'doctor',
                 select: {full_name: 1,address:1,phone_number:1,age:1,speciality:1,department:1, _id: 0}, 
@@ -39,12 +40,13 @@ async function deleteSchedule(id){
 }
 async function getScheduleId(id){
     try {
-        const schedule = await Schedule.findOne({id}).populate({
+        const schedule = await Schedule.find({doctor: id})
+        .populate({
               path:'doctor',
              select: {full_name: 1,address:1,phone_number:1,age:1,speciality:1,department:1, _id: 0},
           })
           .select({ _id: 0, __v: 0 })
-          console.log(schedule)
+         
         return schedule
     } catch (error) {
         

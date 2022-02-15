@@ -12,8 +12,8 @@ router.get('/profile', auth, ControllerAccount.profile)
 
 //doctor
 router.post('/create-doctor',auth, Authorization.roleAuthorization(['doctor','admin']),ControllerDoctor.createDoctor)
-router.put('/update-doctor/:id',Authorization.roleAuthorization(['doctor','admin']), ControllerDoctor.updateDoctor)
-router.delete('/delete-doctor/:id',Authorization.roleAuthorization(['doctor','admin']),ControllerDoctor.deleteDoctor)
+router.put('/update-doctor/:id',auth,Authorization.roleAuthorization(['doctor','admin']), ControllerDoctor.updateDoctor)
+router.delete('/delete-doctor/:id',auth,Authorization.roleAuthorization(['doctor','admin']),ControllerDoctor.deleteDoctor)
 router.get('/profile-doctor', auth, Authorization.roleAuthorization(['doctor','admin']), ControllerDoctor.getDoctorById)
 router.get('/get-all-doctor', ControllerDoctor.getAllDoctor)
 // User
@@ -30,7 +30,7 @@ router.get('/search-doctor',ControllerUser.SearchDoctor)
 const Schedule = require('../controllers/Schedule')
 router.post('/create-schedule',auth, Authorization.roleAuthorization(['doctor','admin']),Schedule.CreateSchedule)
 router.get('/get-by-schedule', auth, Authorization.roleAuthorization(['doctor','admin']), Schedule.getScheduleId)
-router.get('/get-all-schedule', auth, Authorization.roleAuthorization(['doctor','admin']), Schedule.getAllSchedule)
+router.get('/get-all-schedule',  Schedule.getAllSchedule)
 router.put('/update-schedule/:id', auth, Authorization.roleAuthorization(['doctor', 'admin']), Schedule.updateSchedule)
 router.delete('/delete-schedule/:id', auth, Authorization.roleAuthorization(['doctor','admin']), Schedule.deleteSchedule)
 // Appointment
@@ -39,6 +39,7 @@ router.post('/create-appointment', Appointment.createAppointment)
 router.put('/update-appointment/:id', Appointment.updateAppointment)
 router.delete('/delete-appointment/:id',Appointment.deleteAppointment)
 router.get('/get-all-appointment', Appointment.getAppointmentAll)
+router.get('/get-appointment-id/:id', Appointment.getAppointmentId)
 
 // Feedback
 const Feedback = require('../controllers/Feedback')

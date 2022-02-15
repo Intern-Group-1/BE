@@ -19,9 +19,8 @@ async function CreateSchedule(req, res) {
 }
 
 async function getScheduleId(req, res){
-    const doctor = req.body.doctor
-    console.log(doctor)
     try {
+        const doctor = req.body.doctor
         const schedule = await Services.getScheduleId(doctor)
         if(!schedule){
             return res.status(402).json({ status: 402, message: "Schedule not exist!" })

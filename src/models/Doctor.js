@@ -2,37 +2,37 @@ const mongoose =require('mongoose')
 const DoctorSchema = mongoose.Schema({
     full_name: {
         type: String,
-        // required: true,
+        required: true,
     },
     address: {
         type: String,
-        // required:true,
+        required:true,
     },
     phone_number: {
         type: String,
-        // required: true,
+        required: true,
     },
     age :{
         type: Number,
-        // required: true,
+        required: true,
     },
-    // gender:{
-    //     type: Boolean,
-    //     required: true,
-    // },
+    gender:{
+        type: Boolean,
+        required: true,
+    },
     speciality:{
         type: String,
-        // required: true,
+        required: true,
 
     },
     department:{
         type:String,
-        // s
+        required: true,
     },
-    // avatar:{
-    //     type: String,
-    //     required: true,
-    // },
+    avatar:{
+        type: String,
+        required: true,
+    },
     account:{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Account',
