@@ -44,6 +44,15 @@ async function getAllUser(){
         console.log(error)
     }
 }
+async function StatisticsUser()
+{
+    try {
+        const user = await Repository.StatisticsUser()
+        return user
+    } catch (error) {
+        console.log(error)
+    }
+}
 
 async function SearchDoctor(keyword){
     try {
@@ -60,5 +69,6 @@ module.exports = {
     deleteUser,
     getUserById,
     getAllUser,
-    SearchDoctor
+    SearchDoctor,
+    StatisticsUser
 }

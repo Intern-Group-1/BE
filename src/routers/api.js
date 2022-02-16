@@ -16,12 +16,14 @@ router.put('/update-doctor/:id',auth,Authorization.roleAuthorization(['doctor','
 router.delete('/delete-doctor/:id',auth,Authorization.roleAuthorization(['doctor','admin']),ControllerDoctor.deleteDoctor)
 router.get('/profile-doctor', auth, Authorization.roleAuthorization(['doctor','admin']), ControllerDoctor.getDoctorById)
 router.get('/get-all-doctor', ControllerDoctor.getAllDoctor)
+router.get('/doctor-count',ControllerDoctor.StatisticsDoctor)
 // User
 router.post('/create-user',auth, Authorization.roleAuthorization(['customer','admin']),ControllerUser.createUser)
 router.put('/update-user/:id',auth, Authorization.roleAuthorization(['customer','admin']), ControllerUser.updateUser)
 router.delete('/delete-user/:id',auth,Authorization.roleAuthorization(['customer','admin']),ControllerUser.deleteUser)
 router.get('/profile-user', auth, Authorization.roleAuthorization(['customer','admin']), ControllerUser.getUserById)
 router.get('/get-all-user', ControllerUser.getAllUser)
+router.get('/user-count',ControllerUser.StatisticsUser)
 
 router.put('/change-password', auth, Authorization.roleAuthorization(['customer', 'admin']), ControllerAccount.changePassword)
 //Search
@@ -40,7 +42,8 @@ router.put('/update-appointment/:id', Appointment.updateAppointment)
 router.delete('/delete-appointment/:id',Appointment.deleteAppointment)
 router.get('/get-all-appointment', Appointment.getAppointmentAll)
 router.get('/get-appointment-id/:id', Appointment.getAppointmentId)
-
+router.get('/get-status', Appointment.NotApprovedYet)
+router.get('/get-false', Appointment.GetNotApprovedYet)
 // Feedback
 const Feedback = require('../controllers/Feedback')
 router.get('/get-all-feedback', Feedback.getFeedbackAll)

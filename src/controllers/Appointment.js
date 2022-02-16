@@ -78,10 +78,39 @@ async function getAppointmentId(req, res)
         console.log(error)
     }
 }
+
+async function NotApprovedYet(req, res)
+{
+    try {
+        const appointment = await Service.NotApprovedYet()
+        if(!appointment)
+        {
+            return res.status(402).json({ status: 402, message: "Appointment not exist!" })
+        }
+        return res.status(200).json({ status: 200,data: appointment })
+    } catch (error) {
+        console.log(error)
+    }
+}
+async function GetNotApprovedYet(req, res)
+{
+    try {
+        const appointment = await Service.GetNotApprovedYet()
+        if(!appointment)
+        {
+            return res.status(402).json({ status: 402, message: "Appointment not exist!" })
+        }
+        return res.status(200).json({ status: 200,data: appointment })
+    } catch (error) {
+        console.log(error)
+    }
+}
 module.exports = {
     createAppointment,
     updateAppointment,
     deleteAppointment,
     getAppointmentAll,
-    getAppointmentId
+    getAppointmentId,
+    NotApprovedYet,
+    GetNotApprovedYet
 }

@@ -71,6 +71,14 @@ async function getAllUser(req, res){
         console.log(error)
     }
 }
+async function StatisticsUser(req, res)
+{
+    const user = await Services.StatisticsUser()
+    if(!user){
+        return res.status(402).json({ status: 402, message: "User not exist!" })
+    }
+    return res.status(200).json({ status: 200,data: user })
+}
 
 async function SearchDoctor(req, res){
     const keyword = req.query.keyword   
@@ -90,5 +98,6 @@ module.exports = {
     deleteUser,
     getUserById,
     getAllUser,
-    SearchDoctor
+    SearchDoctor,
+    StatisticsUser
 }

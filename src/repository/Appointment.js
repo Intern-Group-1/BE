@@ -108,10 +108,45 @@ async function getAppointmentAll()
     }
 }
 
+async function NotApprovedYet()
+{
+    try {
+        const appointment = await Appointment.find({status: false}).count()
+        return appointment
+    } catch (error) {
+        console.log(error)
+    }
+}
+async function GetNotApprovedYet()
+{
+    try {
+        const appointment = await Appointment.find({status: false})
+        .populate(
+            { 
+                path:'user',
+                select: {full_name: 1,address:1,phone_number:1,age:1, _id: 0},
+               
+            }) 
+            .populate(
+                {   path:'doctor',
+                    select: {full_name: 1,address:1,phone_number:1,age:1,speciality:1,department:1, _id: 0}, 
+                })
+            .populate(
+                {   path:'schedule',
+                        select: {data:1, time:1, _id: 0}, 
+                })
+                .select({ _id: 0, __v: 0 })
+        return appointment
+    } catch (error) {
+        console.log(error)
+    }
+}
 module.exports = {
     createAppointment,
     updateAppointment,
     deleteAppointment,
     getAppointmentId,
-    getAppointmentAll
+    getAppointmentAll,
+    NotApprovedYet,
+    GetNotApprovedYet
 } 

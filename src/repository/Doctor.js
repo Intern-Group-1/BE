@@ -55,10 +55,19 @@ async function getAllDoctor(){
         console.log(error)
     }
 }
+async function StatisticsDoctor(){
+    try {
+        const doctor = await Doctor.find({}).count()
+        return doctor
+    } catch (error) {
+        console.log(error)
+    }
+}
 module.exports = {
     createDoctor,
     updateDoctor,
     deleteDoctor,
     getDoctorId,
     getAllDoctor,
+    StatisticsDoctor
 }

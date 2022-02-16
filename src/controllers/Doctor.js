@@ -75,10 +75,20 @@ async function getAllDoctor(req, res){
         console.log(error)
     }
 }
+
+async function StatisticsDoctor(req, res)
+{
+    const doctor = await Services.StatisticsDoctor()
+    if(!doctor){
+        return res.status(402).json({ status: 402, message: "Doctor not exist!" })
+    }
+    return res.status(200).json({ status: 200,data: doctor })
+}
 module.exports = {
     createDoctor,
     updateDoctor,
     deleteDoctor,
     getDoctorById,
     getAllDoctor,
+    StatisticsDoctor
 }

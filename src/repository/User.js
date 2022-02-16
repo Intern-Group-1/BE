@@ -56,13 +56,14 @@ async function getAllUser(){
     }
 }
 
-// async function getId(id){
-//     try {
-//         const Iduser = await User.
-//     } catch (error) {
-//         console.log(error)
-//     }
-// }
+async function StatisticsUser(){
+    try {
+        const user = await User.find({}).count()
+        return user
+    } catch (error) {
+        console.log(error)
+    }
+}
 
 async function SearchDoctor(keyword){
     try {
@@ -88,5 +89,6 @@ module.exports = {
     deleteUser,
     getUserId,
     getAllUser,
-    SearchDoctor
+    SearchDoctor,
+    StatisticsUser
 }

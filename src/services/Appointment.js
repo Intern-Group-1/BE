@@ -49,11 +49,30 @@ async function getAppointmentAll()
         console.log(error)
     }
 }
-
+async function NotApprovedYet()
+{
+    try {
+        const appointment = await Repository.NotApprovedYet()
+        return appointment
+    } catch (error) {
+        console.log(error)
+    }
+}
+async function GetNotApprovedYet()
+{
+    try {
+        const appointment = await Repository.GetNotApprovedYet()
+        return appointment
+    } catch (error) {
+        console.log(error)
+    }
+}
 module.exports = {
     createAppointment,
     updateAppointment,
     deleteAppointment,
     getAppointmentAll,
-    getAppointmentId
+    getAppointmentId,
+    NotApprovedYet,
+    GetNotApprovedYet
 }

@@ -44,10 +44,20 @@ async function getAllDoctor(){
         console.log(error)
     }
 }
+async function StatisticsDoctor()
+{
+    try {
+        const doctor = await Repository.StatisticsDoctor()
+        return doctor
+    } catch (error) {
+        console.log(error)
+    }
+}
 module.exports = {
     createDoctor,
     updateDoctor,
     deleteDoctor,
     getDoctorById,
     getAllDoctor,
+    StatisticsDoctor
 }
