@@ -31,7 +31,7 @@ const deleteAssistant = async(id) => {
 
 const getAssistantById = async(id) => {
     try {
-        const assistant = await Assistant.findOne({id})
+        const assistant = await Assistant.findOne({_id: id})
         .populate({
             path: 'account',
             select: ({email: 1, role: 1, _id: 0})

@@ -1,5 +1,5 @@
 const { async } = require('q')
-const Services = require('../services/ServiceUser')
+const Services = require('../services/User')
 
 async function createUser(req, res) {
     try {

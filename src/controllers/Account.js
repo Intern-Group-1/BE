@@ -1,6 +1,6 @@
 const { async } = require('q')
 const { populate } = require('../models/Doctor')
-const ServiceUser = require('../services/ServiceAccount')
+const ServiceUser = require('../services/Account')
 async function register (req, res){
     try{
     const body = req.body

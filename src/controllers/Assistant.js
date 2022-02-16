@@ -1,4 +1,4 @@
-const Services = require('../services/ServiceAssistant');
+const Services = require('../services/Assistant');
 const path = require('path');
 const createAssistant = async(req, res) => {
     try {
