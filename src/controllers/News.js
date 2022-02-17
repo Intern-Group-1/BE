@@ -84,7 +84,7 @@ const getAllNews = async (req, res) => {
     try {
         const news = await News.getAllNews();
         if(!news){
-            res.status(400).json("find not news!");
+            res.status(400).json("find all not news!");
         }
         return res.status(200).json(news);
     } catch (error) {

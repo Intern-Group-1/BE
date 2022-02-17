@@ -6,6 +6,7 @@ const ControllerUser = require('../controllers/User')
 const ControllerAssistant = require('../controllers/Assistant')
 const ControllerUploads = require('../controllers/Uploads')
 const News = require('../controllers/News')
+const Branch = require('../controllers/Branch')
 const Authorization = require('../utils/authorization')
 const auth = require('../middlewares/auth')
 const req = require('express/lib/request')
@@ -38,12 +39,19 @@ router.get('/get-all-assistant', auth, Authorization.roleAuthorization(['assista
 router.get('/get-id-assistant/:id', auth, Authorization.roleAuthorization(['assistant','admin']), ControllerAssistant.getAssistantById)
 
 //News
-router.post('/create-news', auth,News.upload, News.CreateNews);
-router.put('/update-news/:id', auth, News.upload, News.UpdateNews);
+router.post('/create-news',News.upload, News.CreateNews);
+router.put('/update-news/:id', News.upload, News.UpdateNews);
 router.delete('/delete-news/:id', News.DeleteNews);
 router.get('/get-id-news/:id', News.GetNewsById);
 router.get('/get-all-news', News.getAllNews);
 
+
+//Branch
+router.post('/create-branch', Branch.createBranch);
+router.put('/update-branch/:id', Branch.updateBranch);
+router.delete('/delete-branch/:id', Branch.deleteBranch);
+router.get('/get-id-branch/:id', Branch.getBranchById);
+router.get('/get-all-branch', Branch.getAllBranch);
 
 router.put('/change-password', auth, Authorization.roleAuthorization(['customer', 'admin']), ControllerAccount.changePassword)
 //Search
