@@ -53,11 +53,30 @@ async function StatisticsDoctor()
         console.log(error)
     }
 }
+async function SearchUser(keyword){
+    try {
+        const user = await Repository.SearchUser(keyword)
+    return user
+    } catch (error) {
+        console.log(error)
+    }
+}
+async function GetSpeciality()
+{
+    try {
+        const speciality = await Repository.GetSpeciality()
+        return speciality
+    } catch (error) {
+        console.log(error)
+    }
+}
 module.exports = {
     createDoctor,
     updateDoctor,
     deleteDoctor,
     getDoctorById,
     getAllDoctor,
-    StatisticsDoctor
+    StatisticsDoctor,
+    SearchUser,
+    GetSpeciality
 }

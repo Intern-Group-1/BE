@@ -135,7 +135,7 @@ async function GetNotApprovedYet()
                 {   path:'schedule',
                         select: {data:1, time:1, _id: 0}, 
                 })
-                .select({ _id: 0, __v: 0 })
+            .select({ _id: 0, __v: 0 })
         return appointment
     } catch (error) {
         console.log(error)

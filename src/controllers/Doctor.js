@@ -84,11 +84,39 @@ async function StatisticsDoctor(req, res)
     }
     return res.status(200).json({ status: 200,data: doctor })
 }
+
+async function SearchUser(req, res){
+    const keyword = req.query.keyword   
+    try {
+        const user = await Services.SearchUser(keyword)
+        if(!user){
+            return res.status(402).json({ status: 402, message: "User not exist!" })
+        }
+        return res.status(200).json({ status: 200, data: user })
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+async function GetSpeciality(req, res)
+{
+    try {
+        const speciality = await Services.GetSpeciality()
+        if(!speciality){
+            return res.status(402).json({ status: 402, message: "Speciality not exist!" })
+        }
+        return res.status(200).json({ status: 200,data: speciality })
+    } catch (error) {
+        console.log(error)
+    }
+}
 module.exports = {
     createDoctor,
     updateDoctor,
     deleteDoctor,
     getDoctorById,
     getAllDoctor,
-    StatisticsDoctor
+    StatisticsDoctor,
+    SearchUser,
+    GetSpeciality
 }

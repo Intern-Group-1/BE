@@ -1,6 +1,6 @@
 const { async } = require('q')
 const Doctor = require('../models/Doctor')
-
+const User = require('../models/User')
 async function createDoctor (params){
     try {
         const doctor = await new Doctor(params)
@@ -63,11 +63,41 @@ async function StatisticsDoctor(){
         console.log(error)
     }
 }
+
+async function SearchUser(keyword){
+    try {
+        let query = {}
+        
+        if(keyword)
+        {
+            query.$or = [
+                { "full_name": { $regex: keyword, $options: 'i' } },
+                { "address": { $regex: keyword, $options: 'i' } },
+              ]
+        }
+        let user = await User.find(query)
+      return user
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+async function GetSpeciality()
+{
+    try {
+        const speciality = await Doctor.distinct("speciality")
+        return speciality
+    } catch (error) {
+        console.log(error)
+    }
+}
 module.exports = {
     createDoctor,
     updateDoctor,
     deleteDoctor,
     getDoctorId,
     getAllDoctor,
-    StatisticsDoctor
+    StatisticsDoctor,
+    SearchUser,
+    GetSpeciality
 }

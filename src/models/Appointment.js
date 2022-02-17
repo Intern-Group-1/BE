@@ -20,12 +20,17 @@ const AppointmentSchema = mongoose.Schema({
     node:{
         type:String,
     },
+    data :{
+        type: Date,
+        default: Date.now,
+    },
     status:{
         type:Boolean,
     },
     schedule:{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Schedule',
-     }
+     },
+    
 }) 
 module.exports = mongoose.model('Appointment', AppointmentSchema) 
