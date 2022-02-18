@@ -53,9 +53,9 @@ exports.profile = async (req, res) => {
     return res.status(200).json(req.user)
 }
 async function getDoctorById(req, res){
-    const account = req.account.id
+    // const account = req.account.id
     try {
-        const doctor = await Services.getDoctorById(account)
+        const doctor = await Services.getDoctorById(req.params.id)
         if(!doctor){
             return res.status(402).json({ status: 402, message: "Doctor not exist!" })
         }
