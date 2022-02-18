@@ -1,10 +1,5 @@
 const mongoose = require('mongoose')
 const AppointmentSchema = mongoose.Schema({
-    // branch:
-    // {
-    //     type: mongoose.Schema.Types.ObjectId,
-    //     ref: 'Branch',
-    // },
     // room:{
     //     type: mongoose.Schema.Types.ObjectId,
     //     ref: 'Room',

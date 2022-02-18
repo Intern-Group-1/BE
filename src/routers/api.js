@@ -18,6 +18,13 @@ router.get('/get-all-doctor', ControllerDoctor.getAllDoctor)
 router.get('/doctor-count',ControllerDoctor.StatisticsDoctor)
 router.get('/search-user', ControllerDoctor.SearchUser)
 router.get('/get-speciality', ControllerDoctor.GetSpeciality)
+// Speciality
+const Speciality = require('../controllers/Speciality')
+router.post('/create-speciality', Speciality.createSpeciality)
+router.put('/update-speciality/:id', Speciality.updateSpeciality)
+router.delete('/delete-speciality/:id', Speciality.deleteSpeciality)
+router.get('/get-all-speciality',Speciality.getAllSpeciality)
+router.get('/get-by-speciality/:id', Speciality.getBySpeciality)
 // User
 router.post('/create-user',auth, Authorization.roleAuthorization(['customer','admin']),ControllerUser.createUser)
 router.put('/update-user/:id',auth, Authorization.roleAuthorization(['customer','admin']), ControllerUser.updateUser)

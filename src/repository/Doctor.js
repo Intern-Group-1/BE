@@ -5,16 +5,36 @@ async function createDoctor (params){
     try {
         const doctor = await new Doctor(params)
         await doctor.save()
-        return doctor
+        const id = doctor._id
+        const result = await Doctor.find({_id:id})
+        .populate(
+            { 
+                path:'speciality',
+                select: {name: 1,images:1, _id: 0},
+            }) 
+            .populate({
+                path: 'account',
+                select: {email: 1, role: 1, _id: 0},
+              })
+        return result
     } catch (error) {
         console.log(error)
     }
 }
-
 async function updateDoctor(id, params){
     try {
-        const doctor = await Doctor.findByIdAndUpdate(id, params)
-        return doctor
+        await Doctor.findByIdAndUpdate(id, params)
+        const result = await Doctor.find({_id:id})
+        .populate(
+            { 
+                path:'speciality',
+                select: {name: 1,images:1, _id: 0},
+            }) 
+            .populate({
+                path: 'account',
+                select: {email: 1, role: 1, _id: 0},
+              })
+        return result
     } catch (error) {
         console.log(error)
     }
@@ -36,6 +56,11 @@ async function getDoctorId(id){
           path: 'account',
           select: {email: 1, role: 1, _id: 0},
         })
+        .populate(
+            { 
+                path:'speciality',
+                select: {name: 1,images:1, _id: 0},
+            })
         // .select({ _id: 0, __v: 0 })
         return doctor
     } catch (error) {
@@ -45,10 +70,16 @@ async function getDoctorId(id){
 
 async function getAllDoctor(){
     try {
-        const doctor = await Doctor.find({}).populate({
+        const doctor = await Doctor.find({})
+        .populate({
             path: 'account',
             select: {email: 1, role: 1, _id: 0},
           })
+          .populate(
+              { 
+                  path:'speciality',
+                  select: {name: 1,images:1, _id: 0},
+              })
         //    .select({ _id: 0, __v: 0 })
         return doctor
     } catch (error) {

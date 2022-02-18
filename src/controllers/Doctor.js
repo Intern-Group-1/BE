@@ -10,7 +10,6 @@ async function createDoctor(req, res) {
             phone_number: req.body.phone_number,
             age: req.body.age,
             speciality: req.body.speciality,
-            department: req.body.department,
             gender:req.body.gender,
             avatar:req.body.avatar,
             account: req.account.id
