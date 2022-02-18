@@ -8,7 +8,7 @@ const RoomSchema = mongoose.Schema({
     status: {
         type: Boolean
     },
-    branch_id: {
+    branch: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Branch'
     }

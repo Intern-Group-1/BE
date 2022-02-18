@@ -7,6 +7,7 @@ const ControllerAssistant = require('../controllers/Assistant')
 const ControllerUploads = require('../controllers/Uploads')
 const News = require('../controllers/News')
 const Branch = require('../controllers/Branch')
+const Room = require('../controllers/Room')
 const Authorization = require('../utils/authorization')
 const auth = require('../middlewares/auth')
 const req = require('express/lib/request')
@@ -52,6 +53,13 @@ router.put('/update-branch/:id', Branch.updateBranch);
 router.delete('/delete-branch/:id', Branch.deleteBranch);
 router.get('/get-id-branch/:id', Branch.getBranchById);
 router.get('/get-all-branch', Branch.getAllBranch);
+
+
+//Room
+router.post('/create-room', Room.createRoom);
+router.put('/update-room/:id', Room.updateRoom);
+router.delete('/delete-room/:id', Room.deleteRoom);
+
 
 router.put('/change-password', auth, Authorization.roleAuthorization(['customer', 'admin']), ControllerAccount.changePassword)
 //Search
