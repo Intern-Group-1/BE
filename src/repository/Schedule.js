@@ -45,7 +45,7 @@ async function getScheduleId(id){
               path:'doctor',
              select: {full_name: 1,address:1,phone_number:1,age:1,speciality:1,department:1, _id: 0},
           })
-          .select({ _id: 0, __v: 0 })
+        //   .select({ _id: 0, __v: 0 })
          
         return schedule
     } catch (error) {
@@ -60,7 +60,7 @@ async function getAllSchedule(){
             path:'doctor',
             select: {full_name: 1,address:1,phone_number:1,age:1,speciality:1,department:1, _id: 0},
           })
-          .select({ _id: 0, __v: 0 })
+        //   .select({ _id: 0, __v: 0 })
         return schedule
     } catch (error) {
         console.log(error)

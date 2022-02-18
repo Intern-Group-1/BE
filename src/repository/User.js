@@ -36,7 +36,7 @@ async function getUserId(id){
           path: 'account',
           select: {email: 1, role: 1, _id: 0},
         })
-        .select({ _id: 0, __v: 0 })
+        // .select({ _id: 0, __v: 0 })
         return user
     } catch (error) {
         console.log(error)
@@ -49,7 +49,7 @@ async function getAllUser(){
             path: 'account',
             select: {email: 1, role: 1, _id: 0},
           })
-          .select({ _id: 0, __v: 0 })
+        //   .select({ _id: 0, __v: 0 })
         return user
     } catch (error) {
         console.log(error)
