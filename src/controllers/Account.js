@@ -10,7 +10,8 @@ async function register (req, res){
     const account = await ServiceUser.register(body)
     if(!account)
     {
-        throw new Error({ error: 'Registration was not successful! Please register again.' })
+        
+        return res.status(400).json({ status: 400, message: "Registration was not successful! Please register again." })
     }
     return res.status(200).json({ status: 200, data: account, message: "Succesfully Users Retrieved" })
     }catch(error)
@@ -25,7 +26,7 @@ async function login (req, res){
         const { email, password } = req.body
         const account = await ServiceUser.login(email, password)
         if(!account){
-            throw new Error({ error: 'Login Fails.' })
+            return res.status(400).json({ status: 400, message: "Login Fails!" })
         }
         return res.status(200).json({ status: 200, data: account, message: "Succesfully Login" })
     } catch (error) {
