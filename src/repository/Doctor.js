@@ -49,7 +49,7 @@ async function getAllDoctor(){
             path: 'account',
             select: {email: 1, role: 1, _id: 0},
           })
-        //   .select({ _id: 0, __v: 0 })
+           .select({ _id: 0, __v: 0 })
         return doctor
     } catch (error) {
         console.log(error)
