@@ -6,8 +6,7 @@ const createRoom = async (req, res) =>{
     try {      
             const room = await Room.createRoom({
                 name_room: req.body.name_room,
-                status: req.body.status,
-                branch: req.body.branch,
+                status: req.body.status
             });
             if(!room){
                 res.status(400).json("create not room!");

@@ -4,8 +4,7 @@ const createBranch = async (req, res) => {
     try {
         const branch = await Branch.createBranch({
             name_branch: req.body.name_branch,
-            address: req.body.address,
-            totalRoom: req.body.totalRoom
+            address: req.body.address
         });
         if(!branch){
             res.status(400).json("Created not branch!");

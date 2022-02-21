@@ -8,10 +8,8 @@ const RoomSchema = mongoose.Schema({
     status: {
         type: Boolean
     },
-    branch: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Branch'
-    }
+        
+  
 }, {timestamps: true});
 
 module.exports = mongoose.model('Room', RoomSchema);

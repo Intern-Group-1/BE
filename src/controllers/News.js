@@ -1,6 +1,6 @@
 const News = require('../services/News');
 const multer = require('multer');
-
+const Uploads = require('./Uploads');
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, './src/uploads');

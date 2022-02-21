@@ -4,14 +4,8 @@ const Branch = require('../models/Branch');
 const createRoom = async (params) => {
     try {
             const room = await Room(params);
-            await room.save();
-            const id = room._id;
-            const result = await Room.find({_id: id}).
-            populate({
-                path: 'branch', 
-                select: {name_branch:1, address: 1, totalRoom: 0}
-            })
-            return result;
+            room.save();
+            return room;
     } catch (error) {
         console.error(error);
     }
@@ -19,13 +13,8 @@ const createRoom = async (params) => {
 
 const updateRoom = async (id, params) => {
     try {
-        await Room.findByIdAndUpdate(id, params);
-        const result = await Room.find({_id: id}).
-            populate({
-                path: 'branch', 
-                select: {name_branch:1, address: 1, totalRoom: 1}
-            })
-        return result;
+        const room = await Room.findByIdAndUpdate(id, params);
+        return room;
     } catch (error) {
         console.log(error);
     }

@@ -9,10 +9,7 @@ const BranchSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    totalRoom: { 
-        type: Number,
-        required: false
-    }
+    
 }, {timestamps: true});
 
 module.exports = mongoose.model('Branch', BranchSchema);
