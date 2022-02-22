@@ -4,7 +4,7 @@ const ControllerAccount = require('../controllers/Account')
 const ControllerDoctor = require('../controllers/Doctor')
 const ControllerUser = require('../controllers/User')
 const ControllerAssistant = require('../controllers/Assistant')
-const ControllerUploads = require('../controllers/Uploads')
+const Uploads = require('../controllers/Uploads')
 const News = require('../controllers/News')
 const Branch = require('../controllers/Branch')
 const Room = require('../controllers/Room')
@@ -34,15 +34,15 @@ router.get('/profile-user', auth, Authorization.roleAuthorization(['customer','a
 router.get('/get-all-user', ControllerUser.getAllUser)
 
 //Assistant
-router.post('/create-assistant', auth, Authorization.roleAuthorization(['assistant','admin']), ControllerUploads.upload, ControllerAssistant.createAssistant)
-router.put('/update-assistant/:id', auth, Authorization.roleAuthorization(['assistant','admin']), ControllerUploads.upload, ControllerAssistant.updateAssistant)
+router.post('/create-assistant', auth, Authorization.roleAuthorization(['assistant','admin']), Uploads.upload, ControllerAssistant.createAssistant)
+router.put('/update-assistant/:id', auth, Authorization.roleAuthorization(['assistant','admin']), Uploads.upload, ControllerAssistant.updateAssistant)
 router.delete('/delete-assistant/:id', auth, Authorization.roleAuthorization(['assistant','admin']), ControllerAssistant.deleteAssistant)
 router.get('/get-all-assistant', auth, Authorization.roleAuthorization(['assistant','admin']), ControllerAssistant.getAllAssistant)
 router.get('/get-id-assistant/:id', auth, Authorization.roleAuthorization(['assistant','admin']), ControllerAssistant.getAssistantById)
 
 //News
-router.post('/create-news', News.upload, News.CreateNews);
-router.put('/update-news/:id', News.upload,News.UpdateNews);
+router.post('/create-news', Uploads.upload, News.CreateNews);
+router.put('/update-news/:id',News.UpdateNews);
 router.delete('/delete-news/:id', News.DeleteNews);
 router.get('/get-id-news/:id', News.GetNewsById);
 router.get('/get-all-news', News.getAllNews);

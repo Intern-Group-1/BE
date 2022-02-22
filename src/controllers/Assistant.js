@@ -6,7 +6,7 @@ const createAssistant = async(req, res) => {
             full_name: req.body.full_name,
             address: req.body.address,
             phone_number: req.body.phone_number,
-            avatar: req.body.path,
+            image: req.file.originalname,
             account: req.account.id,
         });
         if(!assistant){

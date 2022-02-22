@@ -12,7 +12,7 @@ const AssistantSchema = mongoose.Schema({
         type: String,
         required: true,
     },
-    avatar:{
+    image:{
         type: String,
         required: false,
     },

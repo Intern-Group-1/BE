@@ -1,37 +1,32 @@
 const News = require('../services/News');
 const multer = require('multer');
-const Uploads = require('./Uploads');
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, './src/uploads');
-      },
-    filename: function (req, file, cb) {
-        cb(null, file.originalname);
-    }
-});
+const uploads = require('./Uploads');
+// const storage = multer.diskStorage({
+//     destination: function (req, file, cb) {
+//         cb(null, './src/uploads');
+//       },
+//     filename: function (req, file, cb) {
+//         cb(null, file.originalname);
+//     }
+// });
 
-const fileFilter = (req, file, cb) => {
-    if(file.mimetype === 'image/jpeg' || file.mimetype === 'image/png' || file.mimetype === 'image/jpg') {
-        cb(null, true);
-    }else{
-        cb(new Error('Error'), false);
-    }
-}
+// const fileFilter = (req, file, cb) => {
+//     if(file.mimetype === 'image/jpeg' || file.mimetype === 'image/png' || file.mimetype === 'image/jpg') {
+//         cb(null, true);
+//     }else{
+//         cb(new Error('Error'), false);
+//     }
+// }
 
-const upload = multer({
-    storage: storage,
-    limits:{
-        fileSize: 1024*1024*10
-    },
-    fileFilter:fileFilter
-}).single('image');
+
+//const upload = uploads.upload;
 
 const CreateNews = async (req, res) => {
     try {
         const news = await News.CreateNews({
             title: req.body.title,
             content: req.body.content,
-            image: req.file.path,
+            image: req.file.originalname,
         });
         if(!news){
             res.status(400).json("Created not news!");
@@ -98,5 +93,5 @@ module.exports = {
     DeleteNews,
     GetNewsById,
     getAllNews,
-    upload: upload
+  //  upload
 }

@@ -25,8 +25,6 @@ const getRoomByBranchId = async() => {
       //  const id = await Relationship.findOne({branch: id});
         const result = await Relationship.find().populate({
             path: 'room',
-            ref: 'room',
-            localField: '_id',
             foreignField: 'branch',
         }).count();
         return result;
