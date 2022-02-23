@@ -11,12 +11,13 @@ const Room = require('../controllers/Room')
 const Relationship = require('../controllers/Relationship')
 const Authorization = require('../utils/authorization')
 const auth = require('../middlewares/auth')
+const VerifySignUp = require('../middlewares/verifySignUp')
 const req = require('express/lib/request')
 const multer = require('multer');
 const upload = multer();
 
 //account
-router.post('/register', ControllerAccount.register)
+router.post('/register', VerifySignUp.checkDuplicateUsernameOrEmail,ControllerAccount.register)
 router.post('/login',ControllerAccount.login)
 router.get('/profile', auth, ControllerAccount.profile)
 
