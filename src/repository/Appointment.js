@@ -21,6 +21,10 @@ async function createAppointment (params) {
                 {   path:'schedule',
                     select: {data:1, time:1, _id: 0}, 
                 })
+                .populate(
+                    {   path:'assistant',
+                    select: {full_name: 1,address:1,phone_number:1,avatar:1}, 
+                    })
         return result
     } catch (error) {
         console.log(error)

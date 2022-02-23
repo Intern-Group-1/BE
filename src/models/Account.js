@@ -20,7 +20,7 @@ const AccountSchema = mongoose.Schema({
         },
       },
     ],
-   role: { type: String, enum: ['admin', 'doctor', 'customer'] },
+   role: { type: String, enum: ['admin', 'doctor', 'customer','assistant'] },
 })
 
 AccountSchema.pre('save', async function (next) {

@@ -1,9 +1,9 @@
 
 const Services = require('../services/Doctor')
-
+const S3 = require('./S3')
 async function createDoctor(req, res) {
     try {
-        
+        console.log(req.body.full_name)
         const doctor = await Services.createDoctor({
             full_name: req.body.full_name,
             address: req.body.address,
@@ -11,7 +11,7 @@ async function createDoctor(req, res) {
             age: req.body.age,
             speciality: req.body.speciality,
             gender:req.body.gender,
-            avatar:req.body.avatar,
+            avatar:req.file.location,
             account: req.account.id
         })
         if(!doctor){
@@ -26,7 +26,15 @@ async function createDoctor(req, res) {
 async function updateDoctor(req, res) {
     try {
         const body = req.body
-        const doctor = await Services.updateDoctor(req.params.id, body)
+        const doctor = await Services.updateDoctor(req.params.id, {
+            full_name: req.body.full_name,
+            address: req.body.address,
+            phone_number: req.body.phone_number,
+            age: req.body.age,
+            speciality: req.body.speciality,
+            gender:req.body.gender,
+            avatar:req.file.location,
+        })
         if(!doctor)
         {
             return res.status(400).json({ status: 400,  message: "Updated not successfully!" })
@@ -65,7 +73,8 @@ async function getDoctorById(req, res){
 }
 async function getAllDoctor(req, res){
     try {
-        const doctor = await Services.getAllDoctor()
+        var page = req.query.page
+        const doctor = await Services.getAllDoctor(page)
         if(!doctor){
             return res.status(402).json({ status: 402, message: "Doctor not exist!" })
         }

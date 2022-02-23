@@ -1,9 +1,9 @@
 const mongoose = require('mongoose')
 const AppointmentSchema = mongoose.Schema({
-    // room:{
-    //     type: mongoose.Schema.Types.ObjectId,
-    //     ref: 'Room',
-    // },
+    room:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Room',
+    },
     user:{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
@@ -11,7 +11,11 @@ const AppointmentSchema = mongoose.Schema({
     doctor:{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Doctor',
-    },  
+    }, 
+    assistant:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Assistant',
+    } ,
     node:{
         type:String,
     },

@@ -36,9 +36,9 @@ async function getUserById(id){
     }
 }
 
-async function getAllUser(){
+async function getAllUser(page){
     try {
-        const user = await Repository.getAllUser()
+        const user = await Repository.getAllUser(page)
         return user
     } catch (error) {
         console.log(error)

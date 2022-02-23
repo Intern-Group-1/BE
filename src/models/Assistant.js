@@ -1,6 +1,5 @@
 const mongoose =require('mongoose')
-
-const DoctorSchema = mongoose.Schema({
+const AssistantSchema = mongoose.Schema({
     full_name: {
         type: String,
         required: true,
@@ -13,27 +12,13 @@ const DoctorSchema = mongoose.Schema({
         type: String,
         required: true,
     },
-    age :{
-        type: Number,
-        required: true,
-    },
-    gender:{
-        type: Boolean,
-        required: true,
-    },
-    speciality:{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Speciality',
-
-    },
     avatar:{
         type: String,
-       // required: true,
+        required: false,
     },
     account:{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Account',
     }
 })
-
-module.exports = mongoose.model('Doctor', DoctorSchema) 
+module.exports = mongoose.model('Assistant', AssistantSchema) 

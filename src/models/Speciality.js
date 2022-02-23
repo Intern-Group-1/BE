@@ -6,6 +6,7 @@ const SpecialitySchema = mongoose.Schema({
     },
     images:{
         type: String,
+        required: true
     }
 })
 module.exports = mongoose.model('Speciality', SpecialitySchema) 

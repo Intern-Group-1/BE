@@ -10,7 +10,9 @@ async function createAppointment(req, res)
              doctor:req.body.doctor,
              node:req.body.node,
              status:req.body.status,
-             schedule:req.body.schedule
+             schedule:req.body.schedule,
+             room:req.body.room,
+             assistant:req.body.assistant
         })
         if(!appointment)
         {

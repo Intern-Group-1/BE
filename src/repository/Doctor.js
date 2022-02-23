@@ -61,15 +61,37 @@ async function getDoctorId(id){
                 path:'speciality',
                 select: {name: 1,images:1, _id: 0},
             })
-        // .select({ _id: 0, __v: 0 })
         return doctor
     } catch (error) {
         console.log(error)
     }
 }
-
-async function getAllDoctor(){
+const PAGE_SIZE = 2
+async function getAllDoctor(page){
     try {
+        if(page)
+        {
+            if(page < 1)
+            {
+                page = 1
+            }
+            var skips = (page - 1) * PAGE_SIZE
+            const doctor = await Doctor.find({})
+            .skip(skips)
+            .limit(PAGE_SIZE)
+            .populate({
+                path: 'account',
+                select: {email: 1, role: 1, _id: 0},
+            })
+            .populate(
+                { 
+                    path:'speciality',
+                    select: {name: 1,images:1, _id: 0},
+                })
+
+            return doctor
+        }
+        else{
         const doctor = await Doctor.find({})
         .populate({
             path: 'account',
@@ -82,6 +104,8 @@ async function getAllDoctor(){
               })
         //    .select({ _id: 0, __v: 0 })
         return doctor
+            }
+        
     } catch (error) {
         console.log(error)
     }

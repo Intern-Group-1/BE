@@ -36,9 +36,9 @@ async function getDoctorById(id){
     }
 }
 
-async function getAllDoctor(){
+async function getAllDoctor(page){
     try {
-        const doctor = await Repository.getAllDoctor()
+        const doctor = await Repository.getAllDoctor(page)
         return doctor
     } catch (error) {
         console.log(error)

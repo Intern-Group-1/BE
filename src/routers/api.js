@@ -5,13 +5,34 @@ const ControllerDoctor = require('../controllers/Doctor')
 const ControllerUser = require('../controllers/User')
 const Authorization = require('../utils/authorization')
 const auth = require('../middlewares/auth')
-//account
+const multer = require('multer') 
+const AWS = require("aws-sdk")
+var multerS3 = require('multer-s3')
+const appController = require("../controllers/S3");
+// const upload = multer();
+AWS.config.update({
+    secretAccessKey: process.env.AWS_ACCESS_SECRET,
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+    region: process.env.AWS_REGION,
+  })
+var s3 = new AWS.S3()  
+const upload = multer({
+    storage: multerS3({
+      s3: s3,
+      bucket: process.env.AWS_BUCKET,
+      key: async function (req, file, cb) {
+        // console.log(file);
+        let date = await Date.now();
+        cb(null, date + file.originalname); //use Date.now() for unique file keys
+      },
+    }),
+  });
 router.post('/register', ControllerAccount.register)
 router.post('/login',ControllerAccount.login)
 router.get('/profile', auth, ControllerAccount.profile)
 //doctor
-router.post('/create-doctor',auth, Authorization.roleAuthorization(['doctor','admin']),ControllerDoctor.createDoctor)
-router.put('/update-doctor/:id',auth,Authorization.roleAuthorization(['doctor','admin']), ControllerDoctor.updateDoctor)
+router.post('/create-doctor',upload.single("avatar"),auth, Authorization.roleAuthorization(['doctor','admin']),ControllerDoctor.createDoctor)
+router.put('/update-doctor/:id',auth,upload.single("avatar"),Authorization.roleAuthorization(['doctor','admin']), ControllerDoctor.updateDoctor)
 router.delete('/delete-doctor/:id',auth,Authorization.roleAuthorization(['doctor','admin']),ControllerDoctor.deleteDoctor)
 router.get('/profile-doctor/:id',  ControllerDoctor.getDoctorById)
 router.get('/get-all-doctor', ControllerDoctor.getAllDoctor)
@@ -20,14 +41,14 @@ router.get('/search-user', ControllerDoctor.SearchUser)
 router.get('/get-speciality', ControllerDoctor.GetSpeciality)
 // Speciality
 const Speciality = require('../controllers/Speciality')
-router.post('/create-speciality', Speciality.createSpeciality)
-router.put('/update-speciality/:id', Speciality.updateSpeciality)
+router.post('/create-speciality',upload.single("avatar") ,Speciality.createSpeciality)
+router.put('/update-speciality/:id',upload.single("avatar") ,Speciality.updateSpeciality)
 router.delete('/delete-speciality/:id', Speciality.deleteSpeciality)
 router.get('/get-all-speciality',Speciality.getAllSpeciality)
 router.get('/get-by-speciality/:id', Speciality.getBySpeciality)
 // User
-router.post('/create-user',auth, Authorization.roleAuthorization(['customer','admin']),ControllerUser.createUser)
-router.put('/update-user/:id',auth, Authorization.roleAuthorization(['customer','admin']), ControllerUser.updateUser)
+router.post('/create-user',auth,upload.single("avatar"),Authorization.roleAuthorization(['customer','admin']),ControllerUser.createUser)
+router.put('/update-user/:id',auth,upload.single("avatar") ,Authorization.roleAuthorization(['customer','admin']), ControllerUser.updateUser)
 router.delete('/delete-user/:id',auth,Authorization.roleAuthorization(['customer','admin']),ControllerUser.deleteUser)
 router.get('/profile-user', auth, Authorization.roleAuthorization(['customer','admin']), ControllerUser.getUserById)
 router.get('/get-all-user', ControllerUser.getAllUser)
@@ -58,4 +79,39 @@ router.get('/get-by-appointment/:id', Feedback.getFeedbackByApp)
 router.post('/create-feedback', Feedback.createFeedback)
 router.put('/update-feedback/:id',Feedback.updateFeedback)
 router.delete('/delete-feedback/:id',Feedback.deleteFeedback)
+
+
+//Assistant ok
+const ControllerAssistant = require('../controllers/Assistant')
+router.post('/create-assistant', auth,upload.single("avatar"),Authorization.roleAuthorization(['assistant','admin']),ControllerAssistant.createAssistant)
+router.put('/update-assistant/:id',auth,upload.single("avatar"),Authorization.roleAuthorization(['assistant','admin']), ControllerAssistant.updateAssistant)
+router.delete('/delete-assistant/:id', auth, Authorization.roleAuthorization(['assistant','admin']), ControllerAssistant.deleteAssistant)
+router.get('/get-all-assistant', auth, Authorization.roleAuthorization(['admin']), ControllerAssistant.getAllAssistant)
+router.get('/get-id-assistant/:id', auth, Authorization.roleAuthorization(['assistant','admin']), ControllerAssistant.getAssistantById)
+
+//Branch oke
+const Branch = require('../controllers/Branch')
+router.post('/create-branch', Branch.createBranch)
+router.put('/update-branch/:id', Branch.updateBranch)
+router.delete('/delete-branch/:id', Branch.deleteBranch)
+router.get('/get-id-branch/:id', Branch.getBranchById)
+router.get('/get-all-branch', Branch.getAllBranch)
+// 
+const Relationship = require('../controllers/Relationship')
+router.post('/create-relationship', Relationship.createRelation)
+router.get('/get-room-by-branch-id', Relationship.getRoomByBranchId)
+
+//Room ok
+const Room = require('../controllers/Room')
+router.post('/create-room', Room.createRoom)
+router.put('/update-room/:id', Room.updateRoom)
+router.delete('/delete-room/:id', Room.deleteRoom)
+
+//News
+const News = require('../controllers/News')
+router.post('/create-news', News.CreateNews)
+router.put('/update-news/:id',News.UpdateNews)
+router.delete('/delete-news/:id', News.DeleteNews)
+router.get('/get-id-news/:id', News.GetNewsById)
+router.get('/get-all-news', News.getAllNews)
 module.exports = router

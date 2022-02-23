@@ -4,8 +4,10 @@ const Serviecs = require('../services/Speciality')
 async function createSpeciality(req, res)
 {
     try {
-        const body = req.body
-        const speciality = await Serviecs.createSpeciality(body)
+        const speciality = await Serviecs.createSpeciality({
+            name : req.body.name, 
+            images:req.file.location,
+        })
         if(!speciality){
             return res.status(400).json({message:"Created Speciality Not Success!"})
         }
@@ -19,7 +21,10 @@ async function updateSpeciality(req, res)
 {
     try {
         const body = req.body
-        const speciality = await Serviecs.updateSpeciality(req.params.id, body)
+        const speciality = await Serviecs.updateSpeciality(req.params.id, {
+            name : req.body.name, 
+            images:req.file.location,
+        })
         if(!speciality)
         {
             return res.status(400).json({ status: 400,  message: "Updated not successfully!" })

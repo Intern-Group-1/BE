@@ -5,7 +5,13 @@ async function createUser (params){
     try {
         const user = await new User(params)
         await user.save()
-        return user
+        const id = user._id
+        const result = await User.find({_id:id})
+        .populate({
+                path: 'account',
+                select: {email: 1, role: 1, _id: 0},
+              })
+        return result
     } catch (error) {
         console.log(error)
     }
@@ -13,8 +19,13 @@ async function createUser (params){
 
 async function updateUser(id, params){
     try {
-        const user = await User.findByIdAndUpdate(id, params)
-        return user
+        await User.findByIdAndUpdate(id, params)
+        const result = await User.find({_id:id}) 
+            .populate({
+                path: 'account',
+                select: {email: 1, role: 1, _id: 0},
+              })
+        return result
     } catch (error) {
         console.log(error)
     }
@@ -42,15 +53,32 @@ async function getUserId(id){
         console.log(error)
     }
 }
-
-async function getAllUser(){
+const PAGE_SIZE = 2
+async function getAllUser(page){
     try {
+        if(page)
+        {
+            if(page < 1)
+            {
+                page = 1
+            }
+            var skips = (page - 1) * PAGE_SIZE
+            const doctor = await User.find({})
+            .skip(skips)
+            .limit(PAGE_SIZE)
+            .populate({
+                path: 'account',
+                select: {email: 1, role: 1, _id: 0},
+              })
+            return doctor
+        }
+        else{
         const user = await User.find({}).populate({
             path: 'account',
             select: {email: 1, role: 1, _id: 0},
           })
-        //   .select({ _id: 0, __v: 0 })
         return user
+        }
     } catch (error) {
         console.log(error)
     }

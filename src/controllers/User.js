@@ -1,5 +1,4 @@
 const Services = require('../services/User')
-
 async function createUser(req, res) {
     try {
         const user = await Services.createUser({
@@ -7,7 +6,7 @@ async function createUser(req, res) {
             address: req.body.address,
             phone_number: req.body.phone_number,
             gender:req.body.gender,
-            avatar:req.body.avatar,
+            avatar:req.file.location,
             age:req.body.age,
             account: req.account.id
         })
@@ -22,8 +21,14 @@ async function createUser(req, res) {
 
 async function updateUser(req, res) {
     try {
-        const body = req.body
-        const user = await Services.updateUser(req.params.id, body)
+        const user = await Services.updateUser(req.params.id, {
+            full_name: req.body.full_name,
+            address: req.body.address,
+            phone_number: req.body.phone_number,
+            gender:req.body.gender,
+            avatar:req.file.location,
+            age:req.body.age,
+        })
         if(!user)
         {
             return res.status(400).json({ status: 400,  message: "Updated not successfully!" })
@@ -62,7 +67,8 @@ async function getUserById(req, res){
 }
 async function getAllUser(req, res){
     try {
-        const user = await Services.getAllUser()
+        var page = req.query.page
+        const user = await Services.getAllUser(page)
         if(!user){
             return res.status(402).json({ status: 402, message: "User not exist!" })
         }
