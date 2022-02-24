@@ -47,7 +47,8 @@ router.delete('/delete-speciality/:id', Speciality.deleteSpeciality)
 router.get('/get-all-speciality',Speciality.getAllSpeciality)
 router.get('/get-by-speciality/:id', Speciality.getBySpeciality)
 // User
-router.post('/create-user',auth,upload.single("avatar"),Authorization.roleAuthorization(['customer','admin']),ControllerUser.createUser)
+//,upload.single("avatar")
+router.post('/create-user',auth,Authorization.roleAuthorization(['customer','admin']),ControllerUser.createUser)
 router.put('/update-user/:id',auth,upload.single("avatar") ,Authorization.roleAuthorization(['customer','admin']), ControllerUser.updateUser)
 router.delete('/delete-user/:id',auth,Authorization.roleAuthorization(['customer','admin']),ControllerUser.deleteUser)
 router.get('/profile-user', auth, Authorization.roleAuthorization(['customer','admin']), ControllerUser.getUserById)
@@ -86,9 +87,10 @@ const ControllerAssistant = require('../controllers/Assistant')
 router.post('/create-assistant', auth,upload.single("avatar"),Authorization.roleAuthorization(['assistant','admin']),ControllerAssistant.createAssistant)
 router.put('/update-assistant/:id',auth,upload.single("avatar"),Authorization.roleAuthorization(['assistant','admin']), ControllerAssistant.updateAssistant)
 router.delete('/delete-assistant/:id', auth, Authorization.roleAuthorization(['assistant','admin']), ControllerAssistant.deleteAssistant)
-router.get('/get-all-assistant', auth, Authorization.roleAuthorization(['admin']), ControllerAssistant.getAllAssistant)
-router.get('/get-id-assistant/:id', auth, Authorization.roleAuthorization(['assistant','admin']), ControllerAssistant.getAssistantById)
-
+router.get('/get-all-assistant', ControllerAssistant.getAllAssistant)
+router.get('/get-id-assistant/:id', ControllerAssistant.getAssistantById)
+// auth, Authorization.roleAuthorization(['admin'])
+// auth, Authorization.roleAuthorization(['assistant','admin']),
 //Branch oke
 const Branch = require('../controllers/Branch')
 router.post('/create-branch', Branch.createBranch)

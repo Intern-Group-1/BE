@@ -6,7 +6,7 @@ async function createUser(req, res) {
             address: req.body.address,
             phone_number: req.body.phone_number,
             gender:req.body.gender,
-            avatar:req.file.location,
+            //avatar:req.file.location,
             age:req.body.age,
             account: req.account.id
         })

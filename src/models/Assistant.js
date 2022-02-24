@@ -20,5 +20,6 @@ const AssistantSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Account',
     }
+
 })
 module.exports = mongoose.model('Assistant', AssistantSchema) 
