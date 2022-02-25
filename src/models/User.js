@@ -21,10 +21,10 @@ const UserSchema = mongoose.Schema({
         type: Boolean,
         required: true,
     },
-    // avatar:{
-    //     type: String,
-    //     required: true,
-    // },
+    avatar:{
+        type: String,
+        required: true,
+    },
     account:{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Account',

@@ -6,7 +6,7 @@ async function createUser(req, res) {
             address: req.body.address,
             phone_number: req.body.phone_number,
             gender:req.body.gender,
-            //avatar:req.file.location,
+            avatar:req.file.location,
             age:req.body.age,
             account: req.account.id
         })
@@ -21,6 +21,21 @@ async function createUser(req, res) {
 
 async function updateUser(req, res) {
     try {
+        if(req.file == null )
+        {
+            const user = await Services.updateUser(req.params.id, {
+                full_name: req.body.full_name,
+                address: req.body.address,
+                phone_number: req.body.phone_number,
+                gender:req.body.gender,
+                age:req.body.age,
+            })
+            if(!user)
+        {
+            return res.status(400).json({ status: 400,  message: "Updated not successfully!" })
+        }
+        return res.status(200).json({ status: 200, data: user, message: "Update user successfully!" })
+        }else{
         const user = await Services.updateUser(req.params.id, {
             full_name: req.body.full_name,
             address: req.body.address,
@@ -34,6 +49,8 @@ async function updateUser(req, res) {
             return res.status(400).json({ status: 400,  message: "Updated not successfully!" })
         }
         return res.status(200).json({ status: 200, data: user, message: "Update user successfully!" })
+    }
+        
     } catch (error) {
         console.log(error)
     }
