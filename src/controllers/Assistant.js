@@ -22,7 +22,12 @@ const createAssistant = async(req, res) => {
 const updateAssistant = async(req, res) => {
     try {
         const body = req.body;
-        const assistant = await Services.updateAssistant(req.params.id, body);
+        const assistant = await Services.updateAssistant(req.params.id, {
+            full_name: req.body.full_name,
+            address: req.body.address,
+            phone_number: req.body.phone_number,
+            image: req.file.originalname,
+        });
         if(!assistant){
             res.status(400).json("Updated not assistant!");
         }

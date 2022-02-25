@@ -29,8 +29,18 @@ const deleteRoom = async (id) => {
     }
 }
 
+const countRoom = async () => {
+    try {
+        const room = await Room.find({}).count();
+        return room;
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 module.exports = {
     createRoom,
     updateRoom,
-    deleteRoom
+    deleteRoom,
+    countRoom
 }

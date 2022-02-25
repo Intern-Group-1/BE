@@ -44,8 +44,22 @@ const deleteRoom = async (req, res) =>{
     }
 }
 
+const countRoom = async (req, res) => {
+    try {      
+        const room = await Room.countRoom();
+        if(!room){
+            res.status(400).json("count not room!");
+        }         
+        return res.status(200).json(room);
+
+} catch (error) {
+    console.log(error);
+}
+}
+
 module.exports ={
     createRoom,
     updateRoom,
-    deleteRoom
+    deleteRoom,
+    countRoom
 }

@@ -4,8 +4,13 @@ const Assistant = require('../models/Assistant');
 const createAssistant = async(params) => {
     try {
         const assistant = await Assistant(params);
-        assistant.save();
-        return assistant;
+        await assistant.save();
+        const id = assistant._id;
+        const result =await Assistant.find({_id: id}).populate({
+            path: 'account',
+            select: {email: 1, role: 1}
+        })
+        return result;
     } catch (error) {
         console.log(error);
     }
@@ -14,7 +19,11 @@ const createAssistant = async(params) => {
 const updateAssistant = async(id, params) => {
     try {
         const assistant = await Assistant.findByIdAndUpdate(id, params);
-        return assistant;
+        const result = await Assistant.find({_id:id}).populate({
+            path: 'account',
+            select: {email: 1, role: 1}
+        })
+        return result;
     } catch (error) {
         console.log(error);
     }

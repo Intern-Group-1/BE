@@ -23,10 +23,10 @@ const getRoomByBranchId = async() => {
     try {
       //  const id = Relationship.branch;
       //  const id = await Relationship.findOne({branch: id});
-        const result = await Relationship.find().populate({
-            path: 'room',
-            foreignField: 'branch',
-        }).count();
+        const result = await Relationship.find({branch: Relationship._id}).populate({
+            path: 'branch',
+            select: '_id'
+        }).countRoom();
         return result;
     } catch (error) {
         console.log(error)

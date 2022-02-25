@@ -24,9 +24,9 @@ const uploads = require('./Uploads');
 const CreateNews = async (req, res) => {
     try {
         const news = await News.CreateNews({
-            title: req.body.title,
-            content: req.body.content,
-            image: req.file.originalname,
+           title: req.body.title,
+           content: req.body.content,
+           image: req.file.originalname,
         });
         if(!news){
             res.status(400).json("Created not news!");
@@ -40,7 +40,11 @@ const CreateNews = async (req, res) => {
 const UpdateNews = async (req, res) => {
     try {
         const body = req.body;
-        const news = await News.UpdateNews(req.params.id, body);
+        const news = await News.UpdateNews(req.params.id, {
+            title: req.body.title,
+            content: req.body.content,
+            image: req.file.originalname,
+        });
         if(!news){
             res.status(400).json("update not news!");
         }

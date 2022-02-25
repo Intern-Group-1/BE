@@ -43,7 +43,7 @@ router.get('/get-id-assistant/:id', auth, Authorization.roleAuthorization(['assi
 
 //News
 router.post('/create-news', Uploads.upload, News.CreateNews);
-router.put('/update-news/:id',News.UpdateNews);
+router.put('/update-news/:id', Uploads.upload, News.UpdateNews);
 router.delete('/delete-news/:id', News.DeleteNews);
 router.get('/get-id-news/:id', News.GetNewsById);
 router.get('/get-all-news', News.getAllNews);
@@ -61,6 +61,7 @@ router.get('/get-all-branch', Branch.getAllBranch);
 router.post('/create-room', Room.createRoom);
 router.put('/update-room/:id', Room.updateRoom);
 router.delete('/delete-room/:id', Room.deleteRoom);
+router.get('/count-room', Room.countRoom);
 
 
 // RelationshipBR
