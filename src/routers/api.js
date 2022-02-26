@@ -46,8 +46,8 @@ router.put('/update-speciality/:id',upload.single("avatar") ,Speciality.updateSp
 router.delete('/delete-speciality/:id', Speciality.deleteSpeciality)
 router.get('/get-all-speciality',Speciality.getAllSpeciality)
 router.get('/get-by-speciality/:id', Speciality.getBySpeciality)
-// User
-router.post('/create-user',auth,upload.single("avatar"),Authorization.roleAuthorization(['customer','admin']),ControllerUser.createUser)
+// User 
+router.post('/create-user',auth,upload.single("file"),Authorization.roleAuthorization(['customer','admin']),ControllerUser.createUser)
 router.put('/update-user/:id',auth,upload.single("avatar") ,Authorization.roleAuthorization(['customer','admin']), ControllerUser.updateUser)
 router.delete('/delete-user/:id',auth,Authorization.roleAuthorization(['customer','admin']),ControllerUser.deleteUser)
 router.get('/profile-user', auth, Authorization.roleAuthorization(['customer','admin']), ControllerUser.getUserById)
@@ -80,7 +80,7 @@ router.post('/create-feedback', Feedback.createFeedback)
 router.put('/update-feedback/:id',Feedback.updateFeedback)
 router.delete('/delete-feedback/:id',Feedback.deleteFeedback)
 
-
+console.log(upload.single("avatar"))
 //Assistant ok
 const ControllerAssistant = require('../controllers/Assistant')
 router.post('/create-assistant', auth,upload.single("avatar"),Authorization.roleAuthorization(['assistant','admin']),ControllerAssistant.createAssistant)
@@ -115,4 +115,16 @@ router.put('/update-news/:id',News.UpdateNews)
 router.delete('/delete-news/:id', News.DeleteNews)
 router.get('/get-id-news/:id', News.GetNewsById)
 router.get('/get-all-news', News.getAllNews)
+
+router.post("/upload-test", upload.single("file"), function(req, res, next) {
+    console.log(req.body)
+    console.log(req.file)
+    // console.log(req.body.full_name)
+    // console.log(req.body.address)
+    // console.log(req.body.phone_number)
+    // console.log(req.body.gender)
+    // console.log(req.body.avatar)
+    // console.log(req.body.account)
+});
 module.exports = router
+  

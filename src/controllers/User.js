@@ -8,7 +8,7 @@ async function createUser(req, res) {
             gender:req.body.gender,
             avatar:req.file.location,
             age:req.body.age,
-            account: req.account.id
+            account: req.body.account
         })
         if(!user){
             return res.status(400).json({ status: 400, message: "Created not user!" }) 
