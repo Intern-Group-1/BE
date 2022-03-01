@@ -1,6 +1,7 @@
 const Services = require('../services/User')
 async function createUser(req, res) {
     try {
+        console.log(req.body)
         const user = await Services.createUser({
             full_name: req.body.full_name,
             address: req.body.address,
@@ -8,7 +9,7 @@ async function createUser(req, res) {
             gender:req.body.gender,
             avatar:req.file.location,
             age:req.body.age,
-            account: req.account.id
+            account: req.body.account
         })
         if(!user){
             return res.status(400).json({ status: 400, message: "Created not user!" }) 
