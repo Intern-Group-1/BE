@@ -3,6 +3,7 @@ const Account = require('../models/Account')
 
 const auth = async (req, res, next) => {
   const token = req.header('Authorization').replace('Bearer ', '')
+  console.log(token)
   const data = jwt.verify(token, process.env.JWT_KEY)
   try {
     const account = await Account.findOne({ _id: data._id, 'tokens.token': token })

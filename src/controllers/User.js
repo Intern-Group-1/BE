@@ -1,6 +1,7 @@
 const Services = require('../services/User')
 async function createUser(req, res) {
     try {
+        console.log(req.body)
         const user = await Services.createUser({
             full_name: req.body.full_name,
             address: req.body.address,

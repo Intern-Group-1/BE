@@ -47,7 +47,7 @@ router.delete('/delete-speciality/:id', Speciality.deleteSpeciality)
 router.get('/get-all-speciality',Speciality.getAllSpeciality)
 router.get('/get-by-speciality/:id', Speciality.getBySpeciality)
 // User 
-router.post('/create-user',auth,upload.single("file"),Authorization.roleAuthorization(['customer','admin']),ControllerUser.createUser)
+router.post('/create-user',auth,Authorization.roleAuthorization(['customer','admin']),upload.single("file"),ControllerUser.createUser)
 router.put('/update-user/:id',auth,upload.single("avatar") ,Authorization.roleAuthorization(['customer','admin']), ControllerUser.updateUser)
 router.delete('/delete-user/:id',auth,Authorization.roleAuthorization(['customer','admin']),ControllerUser.deleteUser)
 router.get('/profile-user', auth, Authorization.roleAuthorization(['customer','admin']), ControllerUser.getUserById)
