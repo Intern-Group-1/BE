@@ -25,7 +25,7 @@ async function updateSpeciality(id, params)
 async function deleteSpeciality(id)
 {
     try {
-        const speciality = await Speciality.findOneAndDelete(id)
+        const speciality = await Speciality.findByIdAndDelete(id)
         return speciality
     } catch (error) {
         console.log(error)

@@ -29,7 +29,7 @@ const updateAssistant = async(id, params) => {
 }
 const deleteAssistant = async(id) => {
     try {
-        const assistant = await Assistant.findOneAndDelete(id);
+        const assistant = await Assistant.findByIdAndDelete(id);
         return assistant;
     } catch (error) {
         console.log(error);

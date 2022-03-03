@@ -43,7 +43,7 @@ async function updateUser(req, res) {
             phone_number: req.body.phone_number,
             gender:req.body.gender,
             avatar:req.file.location,
-            age:req.body.age,
+            // age:req.body.age,
         })
         if(!user)
         {

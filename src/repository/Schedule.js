@@ -32,7 +32,7 @@ async function updateSchedule(id, params){
 }
 async function deleteSchedule(id){
     try {
-        const schedule = await Schedule.findOneAndDelete(id)
+        const schedule = await Schedule.findByIdAndDelete(id)
         return schedule
     } catch (error) {
         console.log(error)

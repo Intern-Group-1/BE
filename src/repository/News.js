@@ -19,7 +19,7 @@ const UpdateNews = async (id, params) => {
 
 const DeleteNews = async (id) => {
     try {
-        const news = await News.findOneAndDelete(id)
+        const news = await News.findByIdAndDelete(id)
         return news;
     } catch (error) {
         console.log(error)

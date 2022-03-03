@@ -42,7 +42,7 @@ async function updateDoctor(id, params){
 
 async function deleteDoctor(id){
     try {
-        const doctor = await Doctor.findOneAndDelete(id)
+        const doctor = await Doctor.findByIdAndDelete(id)
         return doctor
     } catch (error) {
         console.log(error)

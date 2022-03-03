@@ -13,10 +13,10 @@ const UserSchema = mongoose.Schema({
         type: String,
         required: true,
     },
-    age :{
-        type: Number,
-        // required: true,
-    },
+    // age :{
+    //     type: Number,
+    //     // required: true,
+    // },
     gender:{
         type: Boolean,
         required: true,
