@@ -40,10 +40,10 @@ async function getAppointmentId (id)
     }
 }
 
-async function getAppointmentAll()
+async function getAppointmentAll(id)
 {
     try {
-        const appointment = await Repository.getAppointmentAll()
+        const appointment = await Repository.getAppointmentAll(id)
         return appointment
     } catch (error) {
         console.log(error)

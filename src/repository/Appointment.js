@@ -87,10 +87,10 @@ async function getAppointmentId(id) {
     }
 }
 
-async function getAppointmentAll()
+async function getAppointmentAll(id)
 {
     try {
-        const appointment = await Appointment.find({})
+        const appointment = await Appointment.find({user: id})
         .populate(
             { 
                 path:'user',

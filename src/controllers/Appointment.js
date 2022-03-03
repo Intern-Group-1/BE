@@ -6,13 +6,15 @@ async function createAppointment(req, res)
 {
     try {
         const appointment = await Service.createAppointment({
-             user: req.body.user,
-             doctor:req.body.doctor,
-             node:req.body.node,
-             status:req.body.status,
-             schedule:req.body.schedule,
-             room:req.body.room,
-             assistant:req.body.assistant
+            user: req.body.user,
+            doctor:req.body.doctor,
+            node:req.body.node,
+            status:req.body.status,
+            schedule:req.body.schedule,
+            //  room:req.body.room,
+            date: req.body.date,
+            time: req.body.time,
+            assistant:req.body.assistant
         })
         if(!appointment)
         {
@@ -55,8 +57,9 @@ async function deleteAppointment(req, res)
 
 async function getAppointmentAll(req, res)
 {
+    const user = req.body.user
     try {
-        const appointment = await Service.getAppointmentAll()
+        const appointment = await Service.getAppointmentAll(user)
         if(!appointment)
         {
             return res.status(402).json({ status: 402, message: "Appointment not exist!" })

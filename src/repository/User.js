@@ -33,7 +33,7 @@ async function updateUser(id, params){
 
 async function deleteUser(id){
     try {
-        const user = await User.findOneAndDelete(id)
+        const user = await User.findByIdAndDelete(id)
         return user
     } catch (error) {
         console.log(error)
@@ -42,7 +42,7 @@ async function deleteUser(id){
 
 async function getUserId(id){
     try {
-        const user = await User.findOne({id})
+        const user = await User.find({account:id})
         .populate({
           path: 'account',
           select: {email: 1, role: 1, _id: 0},

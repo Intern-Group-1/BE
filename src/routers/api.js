@@ -48,10 +48,11 @@ router.get('/get-all-speciality',Speciality.getAllSpeciality)
 router.get('/get-by-speciality/:id', Speciality.getBySpeciality)
 // User 
 router.post('/create-user',auth,Authorization.roleAuthorization(['customer','admin']),upload.single("file"),ControllerUser.createUser)
-router.put('/update-user/:id',auth,upload.single("avatar") ,Authorization.roleAuthorization(['customer','admin']), ControllerUser.updateUser)
+router.put('/update-user/:id',auth,upload.single("file") ,Authorization.roleAuthorization(['customer','admin']), ControllerUser.updateUser)
 router.delete('/delete-user/:id',auth,Authorization.roleAuthorization(['customer','admin']),ControllerUser.deleteUser)
 router.get('/profile-user', auth, Authorization.roleAuthorization(['customer','admin']), ControllerUser.getUserById)
 router.get('/get-all-user', ControllerUser.getAllUser)
+
 router.get('/user-count',ControllerUser.StatisticsUser)
 router.put('/change-password', auth, Authorization.roleAuthorization(['customer', 'admin']), ControllerAccount.changePassword)
 //Search
