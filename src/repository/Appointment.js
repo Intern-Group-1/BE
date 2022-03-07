@@ -18,13 +18,12 @@ async function createAppointment (params) {
                     select: {full_name: 1,address:1,phone_number:1,age:1,speciality:1,department:1, _id: 0}, 
                 })
             .populate(
-                {   path:'schedule',
-                    select: {data:1, time:1, _id: 0}, 
+                {   path:'branch' 
                 })
-                .populate(
-                    {   path:'assistant',
-                    select: {full_name: 1,address:1,phone_number:1,avatar:1}, 
-                    })
+                // .populate(
+                //     {   path:'assistant',
+                //     select: {full_name: 1,address:1,phone_number:1,avatar:1}, 
+                //     })
         return result
     } catch (error) {
         console.log(error)
@@ -102,8 +101,8 @@ async function getAppointmentAll(id)
                     select: {full_name: 1,address:1,phone_number:1,age:1,speciality:1,department:1, _id: 0}, 
                 })
             .populate(
-                {   path:'schedule',
-                        select: {data:1, time:1, _id: 0}, 
+                {   path:'branch',
+                       
                 })
                 // .select({ _id: 0, __v: 0 })
         return appointment

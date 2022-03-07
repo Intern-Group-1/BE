@@ -66,12 +66,12 @@ router.put('/update-schedule/:id', auth, Authorization.roleAuthorization(['docto
 router.delete('/delete-schedule/:id', auth, Authorization.roleAuthorization(['doctor','admin']), Schedule.deleteSchedule)
 // Appointment
 const Appointment = require('../controllers/Appointment')
-router.post('/create-appointment',Appointment.createAppointment)
-router.put('/update-appointment/:id',Appointment.updateAppointment)
+router.post('/create-appointment',upload.single("file"),Appointment.createAppointment)
+router.put('/update-appointment/:id',upload.single("file"),Appointment.updateAppointment)
 router.delete('/delete-appointment/:id',auth,Authorization.roleAuthorization(['doctor','admin']),Appointment.deleteAppointment)
-router.get('/get-all-appointment', Appointment.getAppointmentAll)
+router.get('/get-all-appointment/:id', upload.single("file"),Appointment.getAppointmentAll)
 router.get('/get-appointment-id/:id', Appointment.getAppointmentId)
-router.get('/get-status', Appointment.NotApprovedYet)
+router.get('/get-status',upload.single("file") ,Appointment.NotApprovedYet)
 router.get('/get-false', Appointment.GetNotApprovedYet)
 // Feedback
 const Feedback = require('../controllers/Feedback')
