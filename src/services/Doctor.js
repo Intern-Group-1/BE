@@ -36,10 +36,36 @@ async function getDoctorById(id){
     }
 }
 
-async function getAllDoctor(){
+async function getAllDoctor(page){
     try {
-        const doctor = await Repository.getAllDoctor()
+        const doctor = await Repository.getAllDoctor(page)
         return doctor
+    } catch (error) {
+        console.log(error)
+    }
+}
+async function StatisticsDoctor()
+{
+    try {
+        const doctor = await Repository.StatisticsDoctor()
+        return doctor
+    } catch (error) {
+        console.log(error)
+    }
+}
+async function SearchUser(keyword){
+    try {
+        const user = await Repository.SearchUser(keyword)
+    return user
+    } catch (error) {
+        console.log(error)
+    }
+}
+async function GetSpeciality()
+{
+    try {
+        const speciality = await Repository.GetSpeciality()
+        return speciality
     } catch (error) {
         console.log(error)
     }
@@ -50,4 +76,7 @@ module.exports = {
     deleteDoctor,
     getDoctorById,
     getAllDoctor,
+    StatisticsDoctor,
+    SearchUser,
+    GetSpeciality
 }

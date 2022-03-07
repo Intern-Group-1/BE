@@ -20,7 +20,7 @@ const AccountSchema = mongoose.Schema({
         },
       },
     ],
-   role: { type: String, enum: ['admin', 'doctor', 'customer'] },
+   role: { type: String, enum: ['admin', 'doctor', 'customer','assistant'] },
 })
 
 AccountSchema.pre('save', async function (next) {
@@ -54,6 +54,5 @@ AccountSchema.statics.findByCredentials = async (email, password) => {
     return user
 }
   
-
 const Account = mongoose.model('Account', AccountSchema)
 module.exports = Account

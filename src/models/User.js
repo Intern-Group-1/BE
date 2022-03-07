@@ -13,10 +13,18 @@ const UserSchema = mongoose.Schema({
         type: String,
         required: true,
     },
-    // avatar:{
-    //     type: String,
-    //     required: true,
+    // age :{
+    //     type: Number,
+    //     // required: true,
     // },
+    gender:{
+        type: Boolean,
+        required: true,
+    },
+    avatar:{
+        type: String,
+        required: true,
+    },
     account:{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Account',

@@ -5,7 +5,13 @@ async function createUser (params){
     try {
         const user = await new User(params)
         await user.save()
-        return user
+        const id = user._id
+        const result = await User.find({_id:id})
+        .populate({
+                path: 'account',
+                select: {email: 1, role: 1, _id: 0},
+              })
+        return result
     } catch (error) {
         console.log(error)
     }
@@ -13,8 +19,13 @@ async function createUser (params){
 
 async function updateUser(id, params){
     try {
-        const user = await User.findByIdAndUpdate(id, params)
-        return user
+        await User.findByIdAndUpdate(id, params)
+        const result = await User.find({_id:id}) 
+            .populate({
+                path: 'account',
+                select: {email: 1, role: 1, _id: 0},
+              })
+        return result
     } catch (error) {
         console.log(error)
     }
@@ -22,7 +33,7 @@ async function updateUser(id, params){
 
 async function deleteUser(id){
     try {
-        const user = await User.findOneAndDelete(id)
+        const user = await User.findByIdAndDelete(id)
         return user
     } catch (error) {
         console.log(error)
@@ -31,38 +42,56 @@ async function deleteUser(id){
 
 async function getUserId(id){
     try {
-        const user = await User.findOne({id})
+        const user = await User.find({account:id})
         .populate({
           path: 'account',
           select: {email: 1, role: 1, _id: 0},
         })
-        .select({ _id: 0, __v: 0 })
+        // .select({ _id: 0, __v: 0 })
         return user
     } catch (error) {
         console.log(error)
     }
 }
-
-async function getAllUser(){
+const PAGE_SIZE = 2
+async function getAllUser(page){
     try {
+        if(page)
+        {
+            if(page < 1)
+            {
+                page = 1
+            }
+            var skips = (page - 1) * PAGE_SIZE
+            const doctor = await User.find({})
+            .skip(skips)
+            .limit(PAGE_SIZE)
+            .populate({
+                path: 'account',
+                select: {email: 1, role: 1, _id: 0},
+              })
+            return doctor
+        }
+        else{
         const user = await User.find({}).populate({
             path: 'account',
             select: {email: 1, role: 1, _id: 0},
           })
-          .select({ _id: 0, __v: 0 })
         return user
+        }
     } catch (error) {
         console.log(error)
     }
 }
 
-// async function getId(id){
-//     try {
-//         const Iduser = await User.
-//     } catch (error) {
-//         console.log(error)
-//     }
-// }
+async function StatisticsUser(){
+    try {
+        const user = await User.find({}).count()
+        return user
+    } catch (error) {
+        console.log(error)
+    }
+}
 
 async function SearchDoctor(keyword){
     try {
@@ -88,5 +117,6 @@ module.exports = {
     deleteUser,
     getUserId,
     getAllUser,
-    SearchDoctor
+    SearchDoctor,
+    StatisticsUser
 }

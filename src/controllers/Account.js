@@ -1,16 +1,17 @@
 const { async } = require('q')
 const { populate } = require('../models/Doctor')
-const ServiceUser = require('../services/ServiceAccount')
+const ServiceUser = require('../services/Account')
 async function register (req, res){
     try{
     const body = req.body
-    if(body.password != body.password_again){
+    if(body.password != body.password_1){
         return res.status(400).json({ status: 400, message: "The password is incorrect! Please try again." })
     }
     const account = await ServiceUser.register(body)
     if(!account)
     {
-        throw new Error({ error: 'Registration was not successful! Please register again.' })
+        
+        return res.status(400).json({ status: 400, message: "Registration was not successful! Please register again." })
     }
     return res.status(200).json({ status: 200, data: account, message: "Succesfully Users Retrieved" })
     }catch(error)
@@ -25,7 +26,7 @@ async function login (req, res){
         const { email, password } = req.body
         const account = await ServiceUser.login(email, password)
         if(!account){
-            throw new Error({ error: 'Login Fails.' })
+            return res.status(400).json({ status: 400, message: "Login Fails!" })
         }
         return res.status(200).json({ status: 200, data: account, message: "Succesfully Login" })
     } catch (error) {
