@@ -3,7 +3,6 @@ const Branch = require('../services/Branch');
 const createBranch = async (req, res) => {
     try {
         const branch = await Branch.createBranch({
-            name_branch: req.body.name_branch,
             address: req.body.address
         })
         if(!branch){
@@ -54,7 +53,7 @@ const getAllBranch = async (req,res) => {
         if(!branch){
             res.status(400).json("find all not branch!")
         }
-        return res.status(200).json(branch)
+        return res.status(200).json({ status: 200,data: branch })
     } catch (error) {
         console.log(error)
     }

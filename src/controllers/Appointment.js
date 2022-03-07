@@ -5,13 +5,14 @@ const Service = require('../services/Appointment')
 async function createAppointment(req, res)
 {
     try {
+        console.log(req.body)
         const appointment = await Service.createAppointment({
             user: req.body.user,
             doctor:req.body.doctor,
             node:req.body.node,
             status:req.body.status,
             schedule:req.body.schedule,
-            //  room:req.body.room,
+            branch:req.body.branch,
             date: req.body.date,
             time: req.body.time,
             assistant:req.body.assistant
@@ -57,9 +58,10 @@ async function deleteAppointment(req, res)
 
 async function getAppointmentAll(req, res)
 {
-    const user = req.body.user
+    // const user = req.id
+    console.log(req.params.id)
     try {
-        const appointment = await Service.getAppointmentAll(user)
+        const appointment = await Service.getAppointmentAll(req.params.id)
         if(!appointment)
         {
             return res.status(402).json({ status: 402, message: "Appointment not exist!" })
