@@ -86,7 +86,7 @@ async function getAppointmentId(id) {
     }
 }
 
-async function getAppointmentAll(id)
+async function getAppointmentByUser(id)
 {
     try {
         const appointment = await Appointment.find({user: id})
@@ -104,7 +104,30 @@ async function getAppointmentAll(id)
                 {   path:'branch',
                        
                 })
-                // .select({ _id: 0, __v: 0 })
+        return appointment
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+async function getAppointmentAll()
+{
+    try {
+        const appointment = await Appointment.find({})
+        .populate(
+            { 
+                path:'user',
+                select: {full_name: 1,address:1,phone_number:1,age:1, _id: 0},
+               
+            }) 
+            .populate(
+                {   path:'doctor',
+                    select: {full_name: 1,address:1,phone_number:1,age:1,speciality:1,department:1, _id: 0}, 
+                })
+            .populate(
+                {   path:'branch',
+                       
+                })
         return appointment
     } catch (error) {
         console.log(error)
@@ -151,5 +174,6 @@ module.exports = {
     getAppointmentId,
     getAppointmentAll,
     NotApprovedYet,
-    GetNotApprovedYet
+    GetNotApprovedYet,
+    getAppointmentByUser
 } 

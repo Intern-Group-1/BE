@@ -69,7 +69,8 @@ const Appointment = require('../controllers/Appointment')
 router.post('/create-appointment',upload.single("file"),Appointment.createAppointment)
 router.put('/update-appointment/:id',upload.single("file"),Appointment.updateAppointment)
 router.delete('/delete-appointment/:id',auth,Authorization.roleAuthorization(['doctor','admin']),Appointment.deleteAppointment)
-router.get('/get-all-appointment/:id', upload.single("file"),Appointment.getAppointmentAll)
+router.get('/get-all-appointment',Appointment.getAppointmentAll)
+router.get('/get-appointment-byuser/:id', upload.single("file"),Appointment.getAppointmentByUser)
 router.get('/get-appointment-id/:id', Appointment.getAppointmentId)
 router.get('/get-status',upload.single("file") ,Appointment.NotApprovedYet)
 router.get('/get-false', Appointment.GetNotApprovedYet)
@@ -117,15 +118,17 @@ router.delete('/delete-news/:id', News.DeleteNews)
 router.get('/get-id-news/:id', News.GetNewsById)
 router.get('/get-all-news', News.getAllNews)
 
-router.post("/upload-test", upload.single("file"), function(req, res, next) {
-    console.log(req.body)
-    console.log(req.file)
-    // console.log(req.body.full_name)
-    // console.log(req.body.address)
-    // console.log(req.body.phone_number)
-    // console.log(req.body.gender)
-    // console.log(req.body.avatar)
-    // console.log(req.body.account)
+
+const sendSMS =  require("../utils/sns")
+const sns = new AWS.SNS({ apiVersion: "2010-03-31" });
+
+router.post("/send-sms", async (req, res) => {
+  const { PhoneNumber, Message } = req.body;
+
+  await sendSMS({ sns, PhoneNumber, Message });
+
+  return res.status(201).json({ message: "SMS ENVIADO!" });
 });
+
 module.exports = router
   

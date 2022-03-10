@@ -128,6 +128,7 @@ async function SearchUser(keyword){
             query.$or = [
                 { "full_name": { $regex: keyword, $options: 'i' } },
                 { "address": { $regex: keyword, $options: 'i' } },
+                { "phone_number": { $regex: keyword, $options: 'i' } },
               ]
         }
         let user = await User.find(query)
