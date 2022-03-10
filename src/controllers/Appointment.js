@@ -58,10 +58,26 @@ async function deleteAppointment(req, res)
 
 async function getAppointmentAll(req, res)
 {
-    // const user = req.id
+   
+    try {
+        const appointment = await Service.getAppointmentAll()
+        if(!appointment)
+        {
+            return res.status(402).json({ status: 402, message: "Appointment not exist!" })
+        }
+        return res.status(200).json({ status: 200,data: appointment })
+    } catch (error) {
+        console.log(error)
+    }
+
+}
+
+async function getAppointmentByUser(req, res)
+{
+
     console.log(req.params.id)
     try {
-        const appointment = await Service.getAppointmentAll(req.params.id)
+        const appointment = await Service.getAppointmentByUser(req.params.id)
         if(!appointment)
         {
             return res.status(402).json({ status: 402, message: "Appointment not exist!" })
@@ -119,5 +135,6 @@ module.exports = {
     getAppointmentAll,
     getAppointmentId,
     NotApprovedYet,
-    GetNotApprovedYet
+    GetNotApprovedYet,
+    getAppointmentByUser
 }
