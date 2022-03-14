@@ -35,6 +35,14 @@ async function getUserById(id){
         console.log(error)
     }
 }
+async function getUserByIdAdmin(id){
+    try {
+        const user = await Repository.getUserIdAdmin(id)
+        return user
+    } catch (error) {
+        console.log(error)
+    }
+}
 
 async function getAllUser(page){
     try {
@@ -70,5 +78,6 @@ module.exports = {
     getUserById,
     getAllUser,
     SearchDoctor,
-    StatisticsUser
+    StatisticsUser,
+    getUserByIdAdmin
 }

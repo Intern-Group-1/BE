@@ -47,12 +47,24 @@ async function getUserId(id){
           path: 'account',
           select: {email: 1, role: 1, _id: 0},
         })
-        // .select({ _id: 0, __v: 0 })
         return user
     } catch (error) {
         console.log(error)
     }
 }
+async function getUserIdAdmin(id){
+    try {
+        const user = await User.find({_id:id})
+        .populate({
+          path: 'account',
+          select: {email: 1, role: 1, _id: 0},
+        })
+        return user
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 const PAGE_SIZE = 2
 async function getAllUser(page){
     try {
@@ -118,5 +130,6 @@ module.exports = {
     getUserId,
     getAllUser,
     SearchDoctor,
-    StatisticsUser
+    StatisticsUser,
+    getUserIdAdmin
 }

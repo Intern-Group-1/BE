@@ -83,6 +83,21 @@ async function getUserById(req, res){
         console.log(error)
     }
 }
+
+async function getUserByIdAdmin(req, res){
+    const account = req.body.id
+    console.log(account)
+    try {
+        const user = await Services.getUserByIdAdmin(account)
+        if(!user){
+            return res.status(402).json({ status: 402, message: "User not exist!" })
+        }
+        return res.status(200).json({ status: 200,data: user })
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 async function getAllUser(req, res){
     try {
         var page = req.query.page
@@ -123,5 +138,6 @@ module.exports = {
     getUserById,
     getAllUser,
     SearchDoctor,
-    StatisticsUser
+    StatisticsUser,
+    getUserByIdAdmin
 }
