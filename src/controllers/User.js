@@ -138,6 +138,10 @@ module.exports = {
     getUserById,
     getAllUser,
     SearchDoctor,
+
     StatisticsUser,
     getUserByIdAdmin
+
+  
 }
+
