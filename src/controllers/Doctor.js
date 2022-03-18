@@ -1,9 +1,7 @@
 
 const Services = require('../services/Doctor')
-const S3 = require('./S3')
 async function createDoctor(req, res) {
     try {
-        console.log(req.body.full_name)
         const doctor = await Services.createDoctor({
             full_name: req.body.full_name,
             address: req.body.address,
@@ -12,7 +10,7 @@ async function createDoctor(req, res) {
             speciality: req.body.speciality,
             gender:req.body.gender,
             avatar:req.file.location,
-            account: req.account.id
+            account: req.body.account
         })
         if(!doctor){
             return res.status(400).json({ status: 400, message: "Created not doctor!" }) 

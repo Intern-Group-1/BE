@@ -85,10 +85,9 @@ async function getUserById(req, res){
 }
 
 async function getUserByIdAdmin(req, res){
-    const account = req.body.id
-    console.log(account)
+ 
     try {
-        const user = await Services.getUserByIdAdmin(account)
+        const user = await Services.getUserByIdAdmin(req.params.id)
         if(!user){
             return res.status(402).json({ status: 402, message: "User not exist!" })
         }
