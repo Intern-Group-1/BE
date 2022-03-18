@@ -51,7 +51,7 @@ async function deleteDoctor(id){
 
 async function getDoctorId(id){
     try {
-        const doctor = await Doctor.findOne({id})
+        const doctor = await Doctor.find({_id:id})
         .populate({
           path: 'account',
           select: {email: 1, role: 1, _id: 0},
@@ -59,7 +59,7 @@ async function getDoctorId(id){
         .populate(
             { 
                 path:'speciality',
-                select: {name: 1,images:1, _id: 0},
+                select: {name: 1,images:1, _id: 1},
             })
         return doctor
     } catch (error) {

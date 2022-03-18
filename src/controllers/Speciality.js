@@ -20,7 +20,7 @@ async function createSpeciality(req, res)
 async function updateSpeciality(req, res)
 {
     try {
-        const body = req.body
+        if(req.file){
         const speciality = await Serviecs.updateSpeciality(req.params.id, {
             name : req.body.name, 
             images:req.file.location,
@@ -30,6 +30,18 @@ async function updateSpeciality(req, res)
             return res.status(400).json({ status: 400,  message: "Updated not successfully!" })
         }
         return res.status(200).json({ status: 200, data: speciality, message: "Update successfully!" })
+    }
+    else 
+    {
+        const speciality = await Serviecs.updateSpeciality(req.params.id, {
+            name : req.body.name, 
+        })
+        if(!speciality)
+        {
+            return res.status(400).json({ status: 400,  message: "Updated not successfully!" })
+        }
+        return res.status(200).json({ status: 200, data: speciality, message: "Update successfully!" })
+    }
     } catch (error) {
         console.log(error)
     }

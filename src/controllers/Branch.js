@@ -3,7 +3,9 @@ const Branch = require('../services/Branch');
 const createBranch = async (req, res) => {
     try {
         const branch = await Branch.createBranch({
-            address: req.body.address
+            name: req.body.name,
+            address: req.body.address,
+            image: req.file.location
         })
         if(!branch){
             res.status(400).json("Created not branch!")
@@ -15,11 +17,28 @@ const createBranch = async (req, res) => {
 }
 const updateBranch = async (req, res) => {
     try {
-        const branch = await Branch.updateBranch(req.params.id, req.body)
+        if(req.file){
+        const branch = await Branch.updateBranch(req.params.id, {
+            name: req.body.name,
+            address: req.body.address,
+            image: req.file.location
+        })
         if(!branch){
             res.status(400).json("Update not branch!");
         }
         return res.status(200).json(branch)
+    }
+    else
+    {
+        const branch = await Branch.updateBranch(req.params.id, {
+            name: req.body.name,
+            address: req.body.address
+        })
+        if(!branch){
+            res.status(400).json("Update not branch!");
+        }
+        return res.status(200).json(branch)
+    }
     } catch (error) {
         console.log(error)
     }
