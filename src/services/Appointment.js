@@ -59,6 +59,34 @@ async function getAppointmentByUser(id)
         console.log(error)
     }
 }
+
+async function SumApproved()
+{
+    try {
+        const appointment = await Repository.SumApproved()
+        return appointment
+    } catch (error) {
+        console.log(error)
+    }
+}
+async function SumWaiting()
+{
+    try {
+        const appointment = await Repository.SumWaiting()
+        return appointment
+    } catch (error) {
+        console.log(error)
+    }
+}
+async function SumCancel()
+{
+    try {
+        const appointment = await Repository.SumCancel()
+        return appointment
+    } catch (error) {
+        console.log(error)
+    }
+}
 async function NotApprovedYet()
 {
     try {
@@ -85,5 +113,9 @@ module.exports = {
     getAppointmentId,
     NotApprovedYet,
     GetNotApprovedYet,
-    getAppointmentByUser
+    getAppointmentByUser,
+    SumApproved,
+    SumWaiting,
+    SumCancel
+
 }

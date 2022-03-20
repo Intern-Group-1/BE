@@ -62,7 +62,7 @@ async function getDoctorId(id){
                 select: {name: 1,images:1, _id: 1},
             })
         return doctor
-    } catch (error) {
+    } catch (error) { 
         console.log(error)
     }
 }

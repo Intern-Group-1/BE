@@ -30,6 +30,34 @@ async function createAppointment (params) {
     }
 }
 
+async function SumWaiting()
+{
+    try {
+        const appointment = await Appointment.find({status: 0}).count()
+        return appointment
+    } catch (error) {
+        console.log(error)
+    }
+}
+async function SumApproved()
+{
+    try {
+        const appointment = await Appointment.find({status: 1}).count()
+        return appointment
+    } catch (error) {
+        console.log(error)
+    }
+}
+async function SumCancel()
+{
+    try {
+        const appointment = await Appointment.find({status: 2}).count()
+        return appointment
+    } catch (error) {
+        console.log(error)
+    }
+}
+ 
 async function updateAppointment(id, params){
     try {
          await Appointment.findByIdAndUpdate(id, params)
@@ -175,5 +203,8 @@ module.exports = {
     getAppointmentAll,
     NotApprovedYet,
     GetNotApprovedYet,
-    getAppointmentByUser
+    getAppointmentByUser,
+    SumWaiting,
+    SumApproved,
+    SumCancel
 } 
