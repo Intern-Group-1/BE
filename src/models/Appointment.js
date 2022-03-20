@@ -26,7 +26,7 @@ const AppointmentSchema = mongoose.Schema({
         type: String,
      },
     status:{
-        type:Boolean,
+        type:Number,
     },
     schedule:{
         type: mongoose.Schema.Types.ObjectId,

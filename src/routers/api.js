@@ -75,6 +75,11 @@ router.get('/get-appointment-byuser/:id', upload.single("file"),Appointment.getA
 router.get('/get-appointment-id/:id', Appointment.getAppointmentId)
 router.get('/get-status',upload.single("file") ,Appointment.NotApprovedYet)
 router.get('/get-false', Appointment.GetNotApprovedYet)
+
+
+router.get('/sum-waiting', Appointment.SumWaiting)
+router.get('/sum-approved', Appointment.SumApproved)
+router.get('/sum-cancel', Appointment.SumCancel)
 // Feedback
 const Feedback = require('../controllers/Feedback')
 router.get('/get-all-feedback', Feedback.getFeedbackAll)

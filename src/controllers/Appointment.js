@@ -128,6 +128,46 @@ async function GetNotApprovedYet(req, res)
         console.log(error)
     }
 }
+
+async function SumWaiting(req, res)
+{
+    try {
+        const appointment = await Service.SumWaiting()
+        if(!appointment)
+        {
+            return res.status(402).json({ status: 402, message: "Appointment not exist!" })
+        }
+        return res.status(200).json({ status: 200,data: appointment })
+    } catch (error) {
+        console.log(error)
+    }
+}
+async function SumApproved(req, res)
+{
+    try {
+        const appointment = await Service.SumApproved()
+        if(!appointment)
+        {
+            return res.status(402).json({ status: 402, message: "Appointment not exist!" })
+        }
+        return res.status(200).json({ status: 200,data: appointment })
+    } catch (error) {
+        console.log(error)
+    }
+}
+async function SumCancel(req, res)
+{
+    try {
+        const appointment = await Service.SumCancel()
+        if(!appointment)
+        {
+            return res.status(402).json({  data: 0 })
+        }
+        return res.status(200).json({ status: 200,data: appointment })
+    } catch (error) {
+        console.log(error)
+    }
+}
 module.exports = {
     createAppointment,
     updateAppointment,
@@ -136,5 +176,8 @@ module.exports = {
     getAppointmentId,
     NotApprovedYet,
     GetNotApprovedYet,
-    getAppointmentByUser
+    getAppointmentByUser,
+    SumApproved,
+    SumWaiting,
+    SumCancel
 }
