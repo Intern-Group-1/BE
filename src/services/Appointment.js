@@ -60,6 +60,16 @@ async function getAppointmentByUser(id)
     }
 }
 
+async function getAppointmentByDoctor(id)
+{
+    try {
+        const appointment = await Repository.getAppointmentByDoctor(id)
+        return appointment
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 async function SumApproved()
 {
     try {
@@ -116,6 +126,7 @@ module.exports = {
     getAppointmentByUser,
     SumApproved,
     SumWaiting,
-    SumCancel
+    SumCancel,
+    getAppointmentByDoctor
 
 }

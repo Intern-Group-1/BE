@@ -10,7 +10,8 @@ async function createDoctor(req, res) {
             speciality: req.body.speciality,
             gender:req.body.gender,
             avatar:req.file.location,
-            account: req.body.account
+            account: req.body.account,
+           
         })
         if(!doctor){
             return res.status(400).json({ status: 400, message: "Created not doctor!" }) 
@@ -32,6 +33,7 @@ async function updateDoctor(req, res) {
             speciality: req.body.speciality,
             gender:req.body.gender,
             avatar:req.file.location,
+           
         })
         if(!doctor)
         {
@@ -48,6 +50,7 @@ async function updateDoctor(req, res) {
             age: req.body.age,
             speciality: req.body.speciality,
             gender:req.body.gender,
+           
         })
         if(!doctor)
         {

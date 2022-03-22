@@ -34,6 +34,7 @@ const DoctorSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Account',
     }
+   
 })
 
 module.exports = mongoose.model('Doctor', DoctorSchema) 

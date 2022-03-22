@@ -1,7 +1,7 @@
 const { model } = require('mongoose')
 const { async } = require('q')
 const Service = require('../services/Appointment')
-
+var nodemailer = require('nodemailer');
 async function createAppointment(req, res)
 {
     try {
@@ -31,10 +31,61 @@ async function updateAppointment(req, res)
 {
     try {
         const body = req.body
+        console.log(body)
         const appointment = await Service.updateAppointment(req.params.id, body)
         if(!appointment)
         {
             return res.status(400).json({ status: 400,  message: "Updated not successfully!" })
+        }
+
+        if(body.status == 1){
+            var transporter = nodemailer.createTransport({
+                service: 'gmail',
+                auth: {
+                  user: 'quocphan20111999@gmail.com',
+                  pass: 'dghonokbbetkcinj'
+                }
+              });
+            
+              var mailOptions = {
+                from: 'quocphan20111999@gmail.com',
+                to: body.email,
+                subject: 'Doctor Care',
+                text: 'Appoointment Success!'
+              };
+            
+              transporter.sendMail(mailOptions, function(error, info){
+                if (error) {
+                  console.log(error);
+                } else {
+                  console.log('Email sent: ' + info.response);
+                }
+              });
+        }
+        else
+        {
+            var transporter = nodemailer.createTransport({
+                service: 'gmail',
+                auth: {
+                  user: 'quocphan20111999@gmail.com',
+                  pass: 'dghonokbbetkcinj'
+                }
+              });
+            
+              var mailOptions = {
+                from: 'quocphan20111999@gmail.com',
+                to: body.email,
+                subject: 'Doctor Care',
+                text: 'Appoointment Cancel!'
+              };
+            
+              transporter.sendMail(mailOptions, function(error, info){
+                if (error) {
+                  console.log(error);
+                } else {
+                  console.log('Email sent: ' + info.response);
+                }
+              });
         }
         return res.status(200).json({ status: 200, data: appointment, message: "Update appointment successfully!" })
     } catch (error) {
@@ -78,6 +129,23 @@ async function getAppointmentByUser(req, res)
     console.log(req.params.id)
     try {
         const appointment = await Service.getAppointmentByUser(req.params.id)
+        if(!appointment)
+        {
+            return res.status(402).json({ status: 402, message: "Appointment not exist!" })
+        }
+        return res.status(200).json({ status: 200,data: appointment })
+    } catch (error) {
+        console.log(error)
+    }
+
+}
+
+async function getAppointmentByDoctor(req, res)
+{
+
+    console.log(req.params.id)
+    try {
+        const appointment = await Service.getAppointmentByDoctor(req.params.id)
         if(!appointment)
         {
             return res.status(402).json({ status: 402, message: "Appointment not exist!" })
@@ -179,5 +247,6 @@ module.exports = {
     getAppointmentByUser,
     SumApproved,
     SumWaiting,
-    SumCancel
+    SumCancel,
+    getAppointmentByDoctor
 }
