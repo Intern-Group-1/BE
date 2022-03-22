@@ -121,7 +121,31 @@ async function getAppointmentByUser(id)
         .populate(
             { 
                 path:'user',
-                select: {full_name: 1,address:1,phone_number:1,age:1, _id: 0},
+                select: {full_name: 1,address:1,phone_number:1,email:1, _id: 0},
+               
+            }) 
+            .populate(
+                {   path:'doctor',
+                    select: {full_name: 1,address:1,phone_number:1,age:1,speciality:1,department:1, _id: 0}, 
+                })
+            .populate(
+                {   path:'branch',
+                       
+                })
+        return appointment
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+async function getAppointmentByDoctor(id)
+{
+    try {
+        const appointment = await Appointment.find({doctor: id})
+        .populate(
+            { 
+                path:'user',
+                select: {full_name: 1,address:1,phone_number:1, _id: 0},
                
             }) 
             .populate(
@@ -145,7 +169,7 @@ async function getAppointmentAll()
         .populate(
             { 
                 path:'user',
-                select: {full_name: 1,address:1,phone_number:1,age:1, _id: 0},
+                select: {full_name: 1,address:1,phone_number:1},
                
             }) 
             .populate(
@@ -206,5 +230,6 @@ module.exports = {
     getAppointmentByUser,
     SumWaiting,
     SumApproved,
-    SumCancel
+    SumCancel,
+    getAppointmentByDoctor
 } 

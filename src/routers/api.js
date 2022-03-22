@@ -69,9 +69,10 @@ router.delete('/delete-schedule/:id', auth, Authorization.roleAuthorization(['do
 const Appointment = require('../controllers/Appointment')
 router.post('/create-appointment',upload.single("file"),Appointment.createAppointment)
 router.put('/update-appointment/:id',upload.single("file"),Appointment.updateAppointment)
-router.delete('/delete-appointment/:id',auth,Authorization.roleAuthorization(['doctor','admin']),Appointment.deleteAppointment)
+router.delete('/delete-appointment/:id',Appointment.deleteAppointment)
 router.get('/get-all-appointment',Appointment.getAppointmentAll)
 router.get('/get-appointment-byuser/:id', upload.single("file"),Appointment.getAppointmentByUser)
+router.get('/get-appointment-by-doctor/:id', upload.single("file"),Appointment.getAppointmentByDoctor)
 router.get('/get-appointment-id/:id', Appointment.getAppointmentId)
 router.get('/get-status',upload.single("file") ,Appointment.NotApprovedYet)
 router.get('/get-false', Appointment.GetNotApprovedYet)
@@ -124,16 +125,32 @@ router.delete('/delete-news/:id', News.DeleteNews)
 router.get('/get-id-news/:id', News.GetNewsById)
 router.get('/get-all-news', News.getAllNews)
 
+var nodemailer = require('nodemailer');
 
-const sendSMS =  require("../utils/sns")
-const sns = new AWS.SNS({ apiVersion: "2010-03-31" });
 
-router.post("/send-sms", async (req, res) => {
-  const { PhoneNumber, Message } = req.body;
+router.post("/send-mail", async (req, res) => {
+  var transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: 'quocphan20111999@gmail.com',
+      pass: 'dghonokbbetkcinj'
+    }
+  });
 
-  await sendSMS({ sns, PhoneNumber, Message });
+  var mailOptions = {
+    from: 'quocphan20111999@gmail.com',
+    to: req.body.email,
+    subject: 'Doctor Care',
+    text: req.body.text
+  };
 
-  return res.status(201).json({ message: "SMS ENVIADO!" });
+  transporter.sendMail(mailOptions, function(error, info){
+    if (error) {
+      console.log(error);
+    } else {
+      console.log('Email sent: ' + info.response);
+    }
+  });
 });
 
 module.exports = router

@@ -8,7 +8,7 @@ async function createUser(req, res) {
             phone_number: req.body.phone_number,
             gender:req.body.gender,
             avatar:req.file.location,
-            age:req.body.age,
+           
             account: req.body.account
         })
         if(!user){
@@ -29,7 +29,7 @@ async function updateUser(req, res) {
                 address: req.body.address,
                 phone_number: req.body.phone_number,
                 gender:req.body.gender,
-                age:req.body.age,
+               
             })
             if(!user)
         {
@@ -43,7 +43,7 @@ async function updateUser(req, res) {
             phone_number: req.body.phone_number,
             gender:req.body.gender,
             avatar:req.file.location,
-            // age:req.body.age,
+          
         })
         if(!user)
         {
@@ -137,7 +137,6 @@ module.exports = {
     getUserById,
     getAllUser,
     SearchDoctor,
-
     StatisticsUser,
     getUserByIdAdmin
 
