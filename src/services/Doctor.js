@@ -9,7 +9,14 @@ async function createDoctor (params){
         console.log(error)
     }
 }
-
+async function getDoctorByToken(id){
+    try {
+        const doctor = await Repository.getDoctorByToken(id)
+        return doctor
+    } catch (error) {
+        console.log(error)
+    }
+}
 async function updateDoctor(id, params){
     try {
         const doctor = await Repository.updateDoctor(id, params)
@@ -78,5 +85,6 @@ module.exports = {
     getAllDoctor,
     StatisticsDoctor,
     SearchUser,
-    GetSpeciality
+    GetSpeciality,
+    getDoctorByToken
 }

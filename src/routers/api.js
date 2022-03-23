@@ -39,6 +39,7 @@ router.get('/get-all-doctor', ControllerDoctor.getAllDoctor)
 router.get('/doctor-count',ControllerDoctor.StatisticsDoctor)
 router.get('/search-user', ControllerDoctor.SearchUser)
 router.get('/get-speciality', ControllerDoctor.GetSpeciality)
+router.get('/profile-doctor', auth, Authorization.roleAuthorization(['doctor']), ControllerDoctor.getDoctorByToken)
 // Speciality
 const Speciality = require('../controllers/Speciality')
 router.post('/create-speciality',upload.single("file") ,Speciality.createSpeciality)
