@@ -97,16 +97,16 @@ async function getAppointmentId(id) {
         .populate(
             { 
                 path:'user',
-                select: {full_name: 1,address:1,phone_number:1,age:1, _id: 0},
+                select: {full_name: 1,address:1,phone_number:1,age:1},
                
             }) 
             .populate(
                 {   path:'doctor',
-                    select: {full_name: 1,address:1,phone_number:1,age:1,speciality:1,department:1, _id: 0}, 
+                    select: {full_name: 1,address:1,phone_number:1,age:1,speciality:1,department:1}, 
                 })
             .populate(
                 {   path:'schedule',
-                        select: {data:1, time:1, _id: 0}, 
+                        select: {data:1, time:1}, 
                 })
         return appointment       
     } catch (error) {
@@ -145,12 +145,12 @@ async function getAppointmentByDoctor(id)
         .populate(
             { 
                 path:'user',
-                select: {full_name: 1,address:1,phone_number:1, _id: 0},
+                select: {full_name: 1,address:1,phone_number:1},
                
             }) 
             .populate(
                 {   path:'doctor',
-                    select: {full_name: 1,address:1,phone_number:1,age:1,speciality:1,department:1, _id: 0}, 
+                    select: {full_name: 1,address:1,phone_number:1,age:1,speciality:1,department:1}, 
                 })
             .populate(
                 {   path:'branch',
