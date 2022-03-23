@@ -66,6 +66,21 @@ async function getDoctorId(id){
         console.log(error)
     }
 }
+
+
+async function getDoctorByToken(id){
+    try {
+        const doctor = await Doctor.find({account:id})
+        .populate({
+          path: 'account',
+          select: {email: 1, role: 1},
+        })
+        return doctor
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 const PAGE_SIZE = 2
 async function getAllDoctor(page){
     try {
@@ -155,5 +170,6 @@ module.exports = {
     getAllDoctor,
     StatisticsDoctor,
     SearchUser,
-    GetSpeciality
+    GetSpeciality,
+    getDoctorByToken
 }

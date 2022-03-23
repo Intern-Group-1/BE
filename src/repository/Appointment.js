@@ -126,7 +126,7 @@ async function getAppointmentByUser(id)
             }) 
             .populate(
                 {   path:'doctor',
-                    select: {full_name: 1,address:1,phone_number:1,age:1,speciality:1,department:1, _id: 0}, 
+                    select: {full_name: 1,address:1,phone_number:1,age:1,speciality:1,department:1,avatar:1, _id: 0}, 
                 })
             .populate(
                 {   path:'branch',
@@ -174,7 +174,7 @@ async function getAppointmentAll()
             }) 
             .populate(
                 {   path:'doctor',
-                    select: {full_name: 1,address:1,phone_number:1,age:1,speciality:1,department:1, _id: 0}, 
+                    select: {full_name: 1,address:1,phone_number:1,age:1,speciality:1,department:1}, 
                 })
             .populate(
                 {   path:'branch',

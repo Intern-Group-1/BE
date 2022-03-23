@@ -21,7 +21,18 @@ async function createDoctor(req, res) {
         console.log(error)
     }
 }
-
+async function getDoctorByToken(req, res){
+    const account = req.account.id
+    try {
+        const doctor = await Services.getDoctorByToken(account)
+        if(!doctor){
+            return res.status(402).json({ status: 402, message: "Doctor not exist!" })
+        }
+        return res.status(200).json({ status: 200,data: doctor })
+    } catch (error) {
+        console.log(error)
+    }
+}
 async function updateDoctor(req, res) {
     try {
         if(req.file){
@@ -144,5 +155,6 @@ module.exports = {
     getAllDoctor,
     StatisticsDoctor,
     SearchUser,
-    GetSpeciality
+    GetSpeciality,
+    getDoctorByToken
 }
