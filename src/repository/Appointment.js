@@ -97,7 +97,7 @@ async function getAppointmentId(id) {
         .populate(
             { 
                 path:'user',
-                select: {full_name: 1,address:1,phone_number:1,age:1},
+                select: {full_name: 1,address:1,phone_number:1},
                
             }) 
             .populate(
@@ -108,6 +108,10 @@ async function getAppointmentId(id) {
                 {   path:'schedule',
                         select: {data:1, time:1}, 
                 })
+         .populate(
+                    {   path:'branch',
+                        select: {name:1, address:1, _id: 1}, 
+                    })
         return appointment       
     } catch (error) {
         console.log(error)
