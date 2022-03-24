@@ -51,7 +51,7 @@ async function updateAppointment(req, res)
                 from: 'quocphan20111999@gmail.com',
                 to: body.email,
                 subject: 'Doctor Care',
-                text: 'Appoointment Success!'
+                text: body.content + '\nSuccessful Appointment!'
               };
             
               transporter.sendMail(mailOptions, function(error, info){
@@ -76,7 +76,7 @@ async function updateAppointment(req, res)
                 from: 'quocphan20111999@gmail.com',
                 to: body.email,
                 subject: 'Doctor Care',
-                text: 'Appoointment Cancel!'
+                text: body.content + '\nYour appointment has been cancelled'
               };
             
               transporter.sendMail(mailOptions, function(error, info){
