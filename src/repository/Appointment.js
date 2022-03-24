@@ -93,7 +93,7 @@ async function deleteAppointment(id){
 
 async function getAppointmentId(id) {
     try {
-        const appointment = await Appointment.findOne({id})
+        const appointment = await Appointment.find({_id:id})
         .populate(
             { 
                 path:'user',
@@ -121,7 +121,7 @@ async function getAppointmentId(id) {
 async function getAppointmentByUser(id)
 {
     try {
-        const appointment = await Appointment.find({user: id})
+        const appointment = await Appointment.find({user: id}).sort({ date: 'desc'})
         .populate(
             { 
                 path:'user',
@@ -145,7 +145,7 @@ async function getAppointmentByUser(id)
 async function getAppointmentByDoctor(id)
 {
     try {
-        const appointment = await Appointment.find({doctor: id})
+        const appointment = await Appointment.find({doctor: id}).sort({ date: 'desc'})
         .populate(
             { 
                 path:'user',
@@ -169,7 +169,7 @@ async function getAppointmentByDoctor(id)
 async function getAppointmentAll()
 {
     try {
-        const appointment = await Appointment.find({})
+        const appointment = await Appointment.find({}).sort({ date: 'desc'})
         .populate(
             { 
                 path:'user',
